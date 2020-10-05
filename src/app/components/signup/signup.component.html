@@ -1,0 +1,517 @@
+<div class="login position-relative">
+  <div class="loading" *ngIf="loading">
+    <h5 class="text-grey mr-2 mb-0">Please wait...</h5>
+    <img src="../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="form-container">
+    <div class="form-container-title">
+      <img src="../../../assets/images/rhino.png" alt="" />
+      <!-- <h2 class="text-primary">Welcome</h2> -->
+      <h3 class="text-primary">Register to RHINO Cloud Controller</h3>
+      <p>Enter your details to create your account</p>
+    </div>
+    <form [formGroup]="signUpForm" *ngIf="!showCompany">
+      <div class="form-group mb-3">
+        <h5 class="text-center text-grey">Step 1 of 2</h5>
+      </div>
+      <div class="form-group mb-4">
+        <input
+          placement="top"
+          ngbTooltip="will be used as your account name"
+          [class.is-invalid]="
+            signUpFormControls.accountName.invalid &&
+            (signUpFormControls.accountName.dirty ||
+              signUpFormControls.accountName.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.accountName.invalid &&
+            (signUpFormControls.accountName.dirty ||
+              signUpFormControls.accountName.touched)
+          "
+          (keydown)="textValidator($event)"
+          placeholder="Company Name"
+          type="text"
+          pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+          name="name"
+          formControlName="accountName"
+          maxlength="25"
+          minlength="5"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.accountName.invalid &&
+            (signUpFormControls.accountName.dirty ||
+              signUpFormControls.accountName.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.accountName.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide company name
+          </div>
+          <div
+            *ngIf="signUpFormControls.accountName.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">@</div>
+          </div>
+          <input
+            placement="top"
+            ngbTooltip="this email is used to login your account, Account notifications will be send to this email. Consider using a comapny email alias"
+            placeholder="Business Email"
+            [class.is-invalid]="
+              signUpFormControls.email.invalid &&
+              !signUpFormControls.email.value &&
+              (signUpFormControls.email.touched ||
+                signUpFormControls.email.dirty)
+            "
+            [class.is-valid]="
+              signUpFormControls.email.valid &&
+              signUpFormControls.email.value &&
+              (signUpFormControls.email.touched ||
+                signUpFormControls.email.dirty)
+            "
+            type="text"
+            formControlName="email"
+            class="form-control form-control-solid"
+          />
+        </div>
+        <div
+          *ngIf="
+            signUpFormControls.email.invalid &&
+            (signUpFormControls.email.dirty || signUpFormControls.email.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.email.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide business email
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <input
+          [class.is-invalid]="
+            signUpFormControls.userFirstName.invalid &&
+            (signUpFormControls.userFirstName.dirty ||
+              signUpFormControls.userFirstName.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.userFirstName.invalid &&
+            (signUpFormControls.userFirstName.dirty ||
+              signUpFormControls.userFirstName.touched)
+          "
+          (keydown)="textValidator($event)"
+          placeholder="First Name"
+          type="text"
+          pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+          name="userFirstName"
+          formControlName="userFirstName"
+          maxlength="25"
+          minlength="3"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.userFirstName.invalid &&
+            (signUpFormControls.userFirstName.dirty ||
+              signUpFormControls.userFirstName.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.userFirstName.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide first name
+          </div>
+          <div
+            *ngIf="signUpFormControls.userFirstName.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <input
+          [class.is-invalid]="
+            signUpFormControls.userLastName.invalid &&
+            (signUpFormControls.userLastName.dirty ||
+              signUpFormControls.userLastName.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.userLastName.invalid &&
+            (signUpFormControls.userLastName.dirty ||
+              signUpFormControls.userLastName.touched)
+          "
+          (keydown)="textValidator($event)"
+          placeholder="Last Name"
+          type="text"
+          pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+          name="userLastName"
+          formControlName="userLastName"
+          maxlength="25"
+          minlength="3"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.userLastName.invalid &&
+            (signUpFormControls.userLastName.dirty ||
+              signUpFormControls.userLastName.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.userLastName.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide last name
+          </div>
+          <div
+            *ngIf="signUpFormControls.userLastName.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input
+          [class.is-invalid]="
+            signUpFormControls.userJobTitle.invalid &&
+            (signUpFormControls.userJobTitle.dirty ||
+              signUpFormControls.userJobTitle.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.userJobTitle.invalid &&
+            (signUpFormControls.userJobTitle.dirty ||
+              signUpFormControls.userJobTitle.touched)
+          "
+          (keydown)="textValidator($event)"
+          type="text"
+          name="userJobTitle"
+          placeholder="Job Title"
+          maxlength="25"
+          formControlName="userJobTitle"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.userJobTitle.invalid &&
+            (signUpFormControls.userJobTitle.dirty ||
+              signUpFormControls.userJobTitle.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.userJobTitle.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide job title
+          </div>
+          <div
+            *ngIf="signUpFormControls.userJobTitle.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Minimum length should be 5
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input
+          [class.is-invalid]="
+            signUpFormControls.userPhoneNumber.invalid &&
+            (signUpFormControls.userPhoneNumber.dirty ||
+              signUpFormControls.userPhoneNumber.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.userPhoneNumber.invalid &&
+            (signUpFormControls.userPhoneNumber.dirty ||
+              signUpFormControls.userPhoneNumber.touched)
+          "
+          type="text"
+          minlength="12"
+          maxlength="12"
+          placeholder="322 8268 648"
+          (keydown)="numericValidator($event)"
+          formControlName="userPhoneNumber"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.userPhoneNumber.invalid &&
+            (signUpFormControls.userPhoneNumber.dirty ||
+              signUpFormControls.userPhoneNumber.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.userPhoneNumber.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide phone number
+          </div>
+          <!-- <div
+            *ngIf="signUpFormControls.userPhoneNumber.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Invalid phone number
+          </div> -->
+        </div>
+      </div>
+      <div class="form-group">
+        <input
+          [class.is-invalid]="
+            signUpFormControls.password.invalid &&
+            (signUpFormControls.password.dirty ||
+              signUpFormControls.password.touched)
+          "
+          [class.is-valid]="
+            !signUpFormControls.password.invalid &&
+            (signUpFormControls.password.dirty ||
+              signUpFormControls.password.touched)
+          "
+          placeholder="Password"
+          type="password"
+          name="password"
+          formControlName="password"
+          maxlength="25"
+          minlength="5"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            signUpFormControls.password.invalid &&
+            (signUpFormControls.password.dirty ||
+              signUpFormControls.password.touched)
+          "
+        >
+          <div
+            *ngIf="signUpFormControls.password.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide password
+          </div>
+          <div
+            *ngIf="signUpFormControls.password.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            Minimum length should be 8
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-light-primary btn-lg mt-4 mb-2 btn-block"
+        (click)="showCompany = !showCompany"
+        [disabled]="signUpForm.invalid"
+      >
+        Next
+      </button>
+      <div class="form-group text-grey d-flex justify-content-center mt-3">
+        <label> Already have a account?</label>
+        <a href="javascript:;" (click)="isLogin.emit(true)">Log In</a>
+      </div>
+    </form>
+    <form [formGroup]="companyForm" *ngIf="showCompany">
+      <div class="form-group mb-3">
+        <h5 class="text-center text-grey">Step 2 of 2</h5>
+        <p class="text-center">
+          <a
+            href="javascript:;"
+            class="text-primary"
+            (click)="showCompany = !showCompany"
+            >Go back</a
+          >
+        </p>
+      </div>
+      <div class="form-group mb-4">
+        <select
+          formControlName="country"
+          [class.is-invalid]="
+            companyFormFormControls.country.invalid &&
+            companyFormFormControls.country.value &&
+            (companyFormFormControls.country.dirty ||
+              companyFormFormControls.country.touched)
+          "
+          [class.is-valid]="
+            companyFormFormControls.country.valid &&
+            companyFormFormControls.country.value &&
+            (companyFormFormControls.country.dirty ||
+              companyFormFormControls.country.touched)
+          "
+          class="custom-select form-control form-control-solid form-control-lg"
+        >
+          <option value="" disabled>Country</option>
+          <option value="FR">France</option>
+          <option value="GR">Germany</option>
+          <option value="US">US</option>
+        </select>
+        <div
+          *ngIf="
+            companyFormFormControls.country.invalid &&
+            (companyFormFormControls.country.dirty ||
+              companyFormFormControls.country.touched)
+          "
+        >
+          <div
+            *ngIf="companyFormFormControls.country.errors.required"
+            class="invalid-feedback"
+          >
+            Please select country
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <select
+          formControlName="companySize"
+          [class.is-invalid]="
+            companyFormFormControls.companySize.invalid &&
+            companyFormFormControls.companySize.value &&
+            (companyFormFormControls.companySize.dirty ||
+              companyFormFormControls.companySize.touched)
+          "
+          [class.is-valid]="
+            companyFormFormControls.companySize.valid &&
+            companyFormFormControls.companySize.value &&
+            (companyFormFormControls.companySize.dirty ||
+              companyFormFormControls.companySize.touched)
+          "
+          class="custom-select form-control form-control-solid form-control-lg"
+        >
+          <option value="" disabled>Company Size</option>
+          <option value="1-10">1-10 Employees</option>
+          <option value="10-100">10-100 Employees</option>
+          <option value="100-500">100-500 Employees</option>
+        </select>
+        <div
+          *ngIf="
+            companyFormFormControls.companySize.invalid &&
+            (companyFormFormControls.companySize.dirty ||
+              companyFormFormControls.companySize.touched)
+          "
+        >
+          <div
+            *ngIf="companyFormFormControls.companySize.errors.required"
+            class="invalid-feedback"
+          >
+            Please select company size
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <select
+          formControlName="serviceType"
+          [class.is-invalid]="
+            companyFormFormControls.serviceType.invalid &&
+            companyFormFormControls.serviceType.value &&
+            (companyFormFormControls.serviceType.dirty ||
+              companyFormFormControls.serviceType.touched)
+          "
+          [class.is-valid]="
+            companyFormFormControls.serviceType.valid &&
+            companyFormFormControls.serviceType.value &&
+            (companyFormFormControls.serviceType.dirty ||
+              companyFormFormControls.serviceType.touched)
+          "
+          class="custom-select form-control form-control-solid form-control-lg"
+        >
+          <option value="" disabled>Service Type</option>
+          <option value="provider">Provider</option>
+          <option value="internal">Internal use</option>
+        </select>
+        <div
+          *ngIf="
+            companyFormFormControls.serviceType.invalid &&
+            (companyFormFormControls.serviceType.dirty ||
+              companyFormFormControls.serviceType.touched)
+          "
+        >
+          <div
+            *ngIf="companyFormFormControls.serviceType.errors.required"
+            class="invalid-feedback"
+          >
+            Please select service type
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          [class.is-invalid]="
+            companyFormFormControls.numberSites.invalid &&
+            (companyFormFormControls.numberSites.dirty ||
+              companyFormFormControls.numberSites.touched)
+          "
+          [class.is-valid]="
+            !companyFormFormControls.numberSites.invalid &&
+            (companyFormFormControls.numberSites.dirty ||
+              companyFormFormControls.numberSites.touched)
+          "
+          type="text"
+          minlength="1"
+          maxlength="5"
+          placeholder="Number of sites"
+          (keydown)="numericValidator($event)"
+          formControlName="numberSites"
+          class="form-control form-control-solid"
+        />
+        <div
+          *ngIf="
+            companyFormFormControls.numberSites.invalid &&
+            (companyFormFormControls.numberSites.dirty ||
+              companyFormFormControls.numberSites.touched)
+          "
+        >
+          <div
+            *ngIf="companyFormFormControls.numberSites.errors.required"
+            class="invalid-feedback"
+          >
+            Please provide number of sites
+          </div>
+          <div
+            *ngIf="companyFormFormControls.numberSites.errors.minlength"
+            class="invalid-feedback-warning"
+          >
+            May be atleast 1
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group text-grey">
+        <label class="checkbox">
+          <input
+            type="checkbox"
+            name="Checkboxes4"
+            formControlName="is_agree"
+          />
+          <span></span>I agree to the
+          <strong class="ml-1 mr-1">Terms Of Service</strong> and
+          <strong class="ml-1 mr-1"> Privacy Policy</strong></label
+        >
+      </div>
+      <button
+        type="button"
+        class="btn btn-light-primary btn-lg mt-4 mb-2 btn-block"
+        (click)="signUp()"
+        [disabled]="
+          companyForm.invalid || !companyFormFormControls.is_agree.value
+        "
+      >
+        Create
+      </button>
+      <div class="form-group text-grey d-flex justify-content-center mt-3">
+        <label> Already have a account yet?</label>
+        <a href="javascript:;" (click)="isLogin.emit(true)">Log In</a>
+      </div>
+    </form>
+  </div>
+</div>

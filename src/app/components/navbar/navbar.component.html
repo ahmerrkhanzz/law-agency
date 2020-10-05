@@ -1,0 +1,22 @@
+<div
+  class="navbar d-flex flex-column justify-content-end flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+>
+  <div ngbDropdown class="d-inline-block">
+    <button
+      class="btn btn-light-primary"
+      id="dropdownBasic1"
+      ngbDropdownToggle
+    >
+      <span class="mr-1">Hi,</span>
+      <span class="font-weight-bolder">{{ userInfo.name }}</span>
+      <!-- <span class="symbol symbol-35 symbol-light-primary">
+        <span class="symbol-label font-size-h5 font-weight-bold">{{
+          initials
+        }}</span>
+      </span> -->
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem (click)="logOut()">Logout</button>
+    </div>
+  </div>
+</div>

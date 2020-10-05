@@ -1,0 +1,19 @@
+@import '../../../assets/scss/_variables.scss';
+
+.navbar {
+    .btn-icon {
+      .symbol {
+        padding: 0.3rem 0.4rem;
+        background: $blue-shade-4;
+        color: $color-primary;
+        border-radius: 0.42rem;
+      }
+      &:hover {
+        background: $btn-primary-hover;
+      }
+    }
+    ::ng-deep.dropdown-menu {
+      left: -3.8rem;
+    }
+  }
+  
