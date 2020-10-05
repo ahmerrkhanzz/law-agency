@@ -15,7 +15,7 @@ import { Observable } from "rxjs";
 export class RouteGuardService implements CanActivate {
   constructor(private _router: Router, private _toastr: ToastrService) {}
   canActivate() {
-    if (localStorage.hasOwnProperty("token")) {
+    if (localStorage.hasOwnProperty("userInfo")) {
       return true;
     } else {
       this._toastr.error(

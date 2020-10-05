@@ -694,7 +694,7 @@ select:focus {
   z-index: 9;
   width: 100%;
   position: absolute;
-  img{
+  img {
     width: 4rem;
   }
 }
@@ -881,5 +881,15 @@ select:focus {
     .pulse-ring {
       border-color: $color-warning;
     }
+  }
+}
+
+.heading {
+  color: #fff;
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-align: center;
+  &__primary {
+    color: $color-primary;
   }
 }

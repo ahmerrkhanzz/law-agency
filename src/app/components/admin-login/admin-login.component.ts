@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, NgZone, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // import { AdminDoctorsService } from "src/app/admin/doctors/admin-doctors.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { PagesService } from "src/app/pages/pages.service";
 import { forkJoin } from "rxjs";
-import { HttpHeaderResponse } from "@angular/common/http";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore } from "@angular/fire/firestore";
 
 @Component({
   selector: "app-admin-login",
@@ -20,6 +21,8 @@ export class AdminLoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _router: Router,
     private _pagesService: PagesService,
+    private _firestore: AngularFirestore,
+    public afAuth: AngularFireAuth,
     private _toastr: ToastrService // private _adminDoctorsService: AdminDoctorsService
   ) {}
 
@@ -60,56 +63,32 @@ export class AdminLoginComponent implements OnInit {
   loginHandler() {
     this.loading = true;
     const { username, password } = this.loginForm.value;
-    let params = {
-      username,
-      password,
-      captcha: "",
-    };
-    this._pagesService.login(params).subscribe(
-      (res: any) => {
-        this.loading = false;
 
-        const token = res.headers.get("Refresh-JWT");
-        localStorage.setItem("token", JSON.stringify(token));
-        localStorage.setItem("userInfo", JSON.stringify(res.body));
-        this.createOrganization();
-        this._toastr.success(
-          "Welcome to Rhino Cloud Controller",
-          `Hi, ${res.name}`
-        );
-      },
-      (err: any) => {
-        this.loading = false;
-        this._toastr.error(err.error.error, "Error");
-      }
-    );
-  }
-
-  createOrganization() {
-    this.loading = true;
-    let orgParams = {
-      name: "DEFAULT",
-      group: "DEFAULT",
-    };
-
-    let tokenParams = {
-      id: "5f76ce5e8a3c431d10c51dfe",
-      name: "DEFAULT",
-      accont: "5f76ce5e8a3c431d10c51dfe",
-      group: "DEFAULT",
-    };
-
-    forkJoin([
-      this._pagesService.createOrganization(orgParams),
-      this._pagesService.createToken(tokenParams),
-    ]).subscribe(
-      (res: any) => {
-        this.loading = false;
-        this._router.navigate(["pages/dashboard"]);
-      },
-      (err: any) => {
+    this._pagesService
+      .login(username, password)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("userInfo", JSON.stringify(res.user.toJSON()));
+        this.getUserProfile(res.user.uid);
+      })
+      .catch((err) => {
         this.loading = false;
         this._toastr.error(err.message, "Error");
+      });
+  }
+
+  getUserProfile(uid) {
+    this._pagesService.getUserProfile(uid).subscribe(
+      (res: any) => {
+        console.log(res);
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        localStorage.setItem("userInfo", JSON.stringify({ ...userInfo, name: res.name }));
+        this._toastr.success("Welcome to Global Law Firm", `Hi, ${res.name}`);
+        this._router.navigate(["pages/dashboard"]);
+        this.loading = false;
+      },
+      (err: any) => {
+        this.loading = false;
       }
     );
   }
