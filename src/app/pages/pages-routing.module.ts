@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: "dashboard",
-        component: DashboardComponent,
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
         canActivate: [RouteGuardService],
       },
       {

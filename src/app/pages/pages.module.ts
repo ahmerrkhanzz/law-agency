@@ -6,16 +6,16 @@ import { SharedModule } from "../components/shared.module";
 
 import { PagesRoutingModule } from "./pages-routing.module";
 import { PagesComponent } from "./pages.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DevicesComponent } from "./devices/devices.component";
 import { AdminAsideComponent } from "../admin/admin-aside/admin-aside.component";
 import { FormsModule } from "@angular/forms";
 import { PagesService } from "./pages.service";
 
+import { DashboardModule } from './dashboard/dashboard.module';
+
 @NgModule({
   declarations: [
     PagesComponent,
-    DashboardComponent,
     DevicesComponent,
     AdminAsideComponent,
   ],
@@ -26,10 +26,10 @@ import { PagesService } from "./pages.service";
     UiSwitchModule,
     SharedModule,
     PagesRoutingModule,
+    DashboardModule,
   ],
   exports: [
     PagesComponent,
-    DashboardComponent,
     DevicesComponent,
     AdminAsideComponent,
   ],

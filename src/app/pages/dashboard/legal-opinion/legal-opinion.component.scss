@@ -1,0 +1,16 @@
+.dashboard{
+    &__content{
+        margin-top: 15%;
+        .dropdown-toggle{
+            svg{
+                height: 15px;
+                height: 15px;
+            }
+            &:hover{
+                .st1{
+                    fill: #fff;
+                }
+            }
+        }
+    }
+}
