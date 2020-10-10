@@ -19,27 +19,15 @@ export class AdminAsideComponent implements OnInit {
       child: null,
     },
     {
-      name: "Devices",
+      name: "Banks",
       icon: "fas fa-stethoscope",
       img: "devices",
       child: null,
     },
     {
-      name: "Configs",
+      name: "Properties",
       icon: "fab fa-buffer",
       img: "config",
-      child: null,
-    },
-    {
-      name: "Tunnels",
-      icon: "fab fa-buffer",
-      img: "tunnel",
-      child: null,
-    },
-    {
-      name: "Logs",
-      icon: "fab fa-buffer",
-      img: "dashboard_blue",
       child: null,
     },
   ];

@@ -4,20 +4,23 @@
   position: relative;
   height: 100%;
   &-body {
-    background-image: url("../../../assets/images/bg-login.jpg");
+    background-image: url("../../../assets/images/bg-login.png");
     background-position: inherit;
     border-radius: 0.42rem;
     display: flex;
     padding: 5rem;
-    justify-content: center;
+    justify-content: flex-end;
     .close {
       position: absolute;
       top: 2rem;
       right: 2rem;
     }
     .form-container {
-      width: 28rem;
-      display: FLEX;
+      width: 33rem;
+      border-left: 2px solid #fff;
+      padding: 2rem 3rem;
+      display: flex;
+      color: #fff;
       flex-direction: column;
       justify-content: center;
       &-title {
@@ -29,12 +32,11 @@
         align-items: center;
         h3 {
           font-size: 1.5rem;
-          color: $text-purple;
           font-weight: 500;
           margin-bottom: 0.8rem;
         }
         p {
-          color: $text-muted;
+          color: #fff;
         }
         img {
           margin-bottom: 1.8rem;
@@ -162,7 +164,7 @@
 
 ::ng-deep .modal {
   &-backdrop {
-    // background-image: url("../../../assets/images/bg-login.jpg");
+    // background-image: url("../../../assets/images/bg-login.png");
     // &.show {
     //   opacity: 1;
     // }

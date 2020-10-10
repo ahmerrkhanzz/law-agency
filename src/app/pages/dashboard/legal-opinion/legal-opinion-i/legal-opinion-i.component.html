@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="loading" *ngIf="loading">
+                <span class="text-grey">Updating please wait...</span>
+                <img src="../../../../assets/images/loader.gif" alt="" />
+            </div>
+            <div class="doctor">
+                <ul ngbNav #nav="ngbNav" (navChange)="onNavChange($event)" class="nav-tabs">
+                    <li [ngbNavItem]="tab.id" *ngFor="let tab of doctors" [disabled]="true">
+                        <a ngbNavLink (click)="selectTab(tab)">{{ tab.title }}</a>
+                        <ng-template ngbNavContent>
+                            <ul ngbNav #navChild="ngbNav" class="nav-tabs nav-tabs-child">
+                                <li [ngbNavItem]="child.id" *ngFor="let child of formsNav">
+                                    <a ngbNavLink (click)="selectChildTab(child)">{{ child.title }}</a>
+                                    <ng-template ngbNavContent>
+                                        <app-general-information (proceed)="validated($event)"
+                                            (unauthorized)="isUserLoggedIn($event)" *ngIf="selectedChildTab.id === 1">
+                                        </app-general-information>
+                                        <app-list-of-documents *ngIf="selectedChildTab.id === 2">
+                                        </app-list-of-documents>
+                                        <app-list-of-documents-ii *ngIf="selectedChildTab.id === 3">
+                                        </app-list-of-documents-ii>
+                                    </ng-template>
+                                </li>
+                            </ul>
+                            <div [ngbNavOutlet]="navChild"></div>
+
+                        </ng-template>
+                    </li>
+                </ul>
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                {{ selectedTab.title }}
+                                <i class="mr-2"></i>
+                            </h3>
+                        </div>
+                        <div class="card-toolbar">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-xl-2"></div>
+                                <div class="col-xl-8">
+                                    <div [ngbNavOutlet]="nav"></div>
+                                </div>
+                                <div class="col-xl-2"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

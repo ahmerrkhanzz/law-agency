@@ -6,101 +6,62 @@
     <div class="form-container">
       <div class="login__form" *ngIf="!showSignUpForm">
         <div class="form-container-title">
-          <!-- <img src="../../../assets/images/rhino.png" alt="" /> -->
+          <img src="../../../assets/images/Global Law Logo.png" alt="" />
           <!-- <h2 class="text-primary">Welcome</h2> -->
-          <h3 class="text-primary">Welcome to Eshaafi</h3>
+          <h3>Welcome to Global Law Associates</h3>
           <p>Enter your details to login</p>
         </div>
         <form [formGroup]="loginForm">
           <div class="form-group mb-4">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">@</div>
-              </div>
-              <input
-                [class.is-invalid]="
+            <input [class.is-invalid]="
                   loginForm.get('username').invalid &&
                   (loginForm.get('username').touched ||
                     loginForm.get('username').dirty)
-                "
-                [class.is-valid]="
+                " [class.is-valid]="
                   !loginForm.get('username').invalid &&
                   (loginForm.get('username').touched ||
                     loginForm.get('username').dirty)
-                "
-                type="text"
-                formControlName="username"
-                placeholder="Enter email"
-                class="form-control form-control-solid form-control-lg"
-              />
-            </div>
-            <div
-              *ngIf="
+                " type="text" formControlName="username" placeholder="Enter email"
+              class="form-control form-control-solid form-control-lg" />
+            <!-- <div *ngIf="
                 loginFormControls.username.invalid &&
                 (loginFormControls.username.dirty ||
                   loginFormControls.username.touched)
-              "
-            >
-              <div
-                *ngIf="loginFormControls.username.errors.required"
-                class="invalid-feedback"
-              >
+              ">
+              <div *ngIf="loginFormControls.username.errors.required" class="invalid-feedback">
                 Please provide email
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="form-group mb-4">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">#</div>
-              </div>
-              <input
-                [class.is-invalid]="
+            <input [class.is-invalid]="
                   loginForm.get('password').invalid &&
                   (loginForm.get('password').touched ||
                     loginForm.get('password').dirty)
-                "
-                [class.is-valid]="
+                " [class.is-valid]="
                   !loginForm.get('password').invalid &&
                   (loginForm.get('password').touched ||
                     loginForm.get('password').dirty)
-                "
-                type="password"
-                minlength="6"
-                maxlength="20"
-                formControlName="password"
-                placeholder="Enter password"
-                class="form-control form-control-solid form-control-lg"
-              />
-            </div>
-            <div
-              *ngIf="
+                " type="password" minlength="6" maxlength="20" formControlName="password" placeholder="Enter password"
+              class="form-control form-control-solid form-control-lg" />
+            <!-- <div *ngIf="
                 loginFormControls.password.invalid &&
                 (loginFormControls.password.dirty ||
                   loginFormControls.password.touched)
-              "
-            >
-              <div
-                *ngIf="loginFormControls.password.errors.required"
-                class="invalid-feedback"
-              >
+              ">
+              <div *ngIf="loginFormControls.password.errors.required" class="invalid-feedback">
                 Please provide password
               </div>
-            </div>
+            </div> -->
           </div>
-          <button
-            id="sign-in-button"
-            type="submit"
-            class="btn btn-light-primary mt-4"
-            [disabled]="loginForm.invalid"
-            (click)="loginHandler()"
-          >
+          <button id="sign-in-button" type="submit" class="btn btn-primary mt-4" [disabled]="loginForm.invalid"
+            (click)="loginHandler()">
             Login
           </button>
-          <div class="form-group text-grey d-flex justify-content-center mt-3">
+          <!-- <div class="form-group text-grey d-flex justify-content-center mt-3">
             <label> Don't have a account yet?</label>
             <a href="javascript:;" (click)="showSignUpForm = !showSignUpForm">Sign Up</a>
-          </div>
+          </div> -->
         </form>
       </div>
       <app-signup *ngIf="showSignUpForm" (isLogin)="isLogin($event)"></app-signup>

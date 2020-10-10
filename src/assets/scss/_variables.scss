@@ -1,12 +1,12 @@
 // THEME COLORS
-$color-primary: #0096c7;
+$color-primary: #772e25;
 $color-secondary: #00b8ae;
 $color-warning: #ffa800;
 $color-danger: #f64e60;
 
 $color-light-warning: #fff5e0;
 $color-light-danger: #fee9ec;
-$color-primary-light: #CAF0F8;
+$color-primary-light: transparentize($color-primary, 0.8);
 $color-secondary-light: #c9f7f5;
 $color-danger-light: #fee2e5;
 
@@ -20,7 +20,7 @@ $btn-default: #e4e6ef;
 $btn-default-hover: #d7dae7;
 $btn-secondary: $color-secondary;
 $btn-secondary-hover: #1d9690;
-$btn-primary-hover: #0077b6;
+$btn-primary-hover: #cc5803;
 
 //TEXT
 $text-grey: #7e8299;
@@ -31,7 +31,7 @@ $text-purple: #3f4254;
 //CARDS-WAVE
 $wave-grey: #f3f6f9;
 
-$blue-shade-1: #0096c7;
+$blue-shade-1: #e2711d;
 $blue-shade-2: #00b4d8;
 $blue-shade-3: #48cae4;
 $blue-shade-4: #90e0ef;

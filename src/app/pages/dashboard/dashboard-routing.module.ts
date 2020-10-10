@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { LegalOpinionIComponent } from './legal-opinion/legal-opinion-i/legal-opinion-i.component';
 import { LegalOpinionComponent } from './legal-opinion/legal-opinion.component';
 
 
@@ -14,8 +15,8 @@ const routes: Routes = [
         component: LegalOpinionComponent
       },
       {
-        path: 'pages/legal-opnion',
-        component: LegalOpinionComponent
+        path: 'legal-opinion',
+        component: LegalOpinionIComponent
       }
     ]
   }

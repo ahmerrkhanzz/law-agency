@@ -3,9 +3,9 @@
 .navaside {
   box-shadow: 0 0 28px 0 rgba(82, 63, 105, 0.08);
   height: 100%;
-  background: #fff;
+  background: $text-dark;
   .list-group-item {
-    background: #fff;
+    background: $text-dark;
     font-size: 0.8rem;
     border: none;
     padding: 0;
@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       padding: 1rem 1.25rem;
-      color: $text-purple;
+      color: #fff;
       font-size: 1rem;
       font-weight: 400;
       i {
@@ -47,14 +47,17 @@
   }
   &-header {
     // background: $light-grey;
-    color: $text-purple;
+    display: flex;
+    align-items: center;
+    color: #fff;
     padding: 1.5rem;
     img {
       width: 100%;
-      max-width: 7rem;
+      max-width: 5rem;
       object-fit: contain;
+      margin-right: 0.8rem;
     }
-    h4 {
+    h5 {
       margin: 0;
     }
   }
@@ -88,10 +91,10 @@
 
           &.collapsed {
             text-decoration: none;
-            background: none;
-            color: $text-purple;
+            background: $text-dark;
+            color: #fff;
             i {
-              color: $text-purple;
+              color: #fff;
             }
           }
           &:hover {

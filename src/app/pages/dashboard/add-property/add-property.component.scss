@@ -3,7 +3,7 @@
 .card {
   position: relative;
   &-body {
-    background-image: url("../../../../assets/images/bg-login.jpg");
+    background-image: url("../../../../assets/images/bg-not-found.jpg");
     background-position: inherit;
     border-radius: 0.42rem;
     display: flex;
@@ -80,7 +80,7 @@
 
 ::ng-deep .modal {
   &-backdrop {
-    // background-image: url("../../../assets/images/bg-login.jpg");
+    // background-image: url("../../../assets/images/bg-login.png");
     // &.show {
     //   opacity: 1;
     // }

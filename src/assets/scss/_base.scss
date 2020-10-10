@@ -142,13 +142,10 @@
   border-radius: 0.42rem;
   -webkit-box-shadow: none;
   box-shadow: none;
-  -webkit-transition: border-color 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   &:focus {
     box-shadow: none;
     border-color: $color-primary;
@@ -196,6 +193,22 @@
     }
   }
 }
+.custom-file,
+.custom-file-label,
+.custom-file-label {
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+}
+.custom-file-label {
+  &:after {
+    height: 3.4rem;
+    background-color: $btn-default;
+    color: $text-grey;
+    display: flex;
+    align-items: center;
+  }
+}
 .invalid-feedback {
   font-size: inherit;
   font-weight: 400;
@@ -236,6 +249,9 @@
   }
   &-grey {
     background: $bg-grey;
+  }
+  &-primary {
+    background: $color-primary;
   }
 }
 

@@ -1,0 +1,257 @@
+<div class="personal">
+  <form [formGroup]="personalInformationForm">
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Total area of property <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <select name="" id="" class="form-control form-control-solid custom-select">
+          <option value="marla">Marla</option>
+          <option value="kanal">Kanal</option>
+        </select>
+        <div *ngIf="
+            personalInformationFormControls.pmdc.invalid &&
+            (personalInformationFormControls.pmdc.dirty ||
+              personalInformationFormControls.pmdc.touched)
+          "></div>
+
+        <div *ngIf="
+            personalInformationFormControls.pmdc.invalid &&
+            (personalInformationFormControls.pmdc.dirty ||
+              personalInformationFormControls.pmdc.touched)
+          " class="invalid-feedback">
+          Invalid PMDC No.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Name <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " [class.is-valid]="
+              !personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " (keydown)="textValidator($event)" type="text" maxlength="25" formControlName="name"
+          class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.name.errors.required" class="invalid-feedback">
+            Please provide name
+          </div>
+          <div *ngIf="personalInformationFormControls.name.errors.minlength" class="invalid-feedback-warning">
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">CNIC <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+        personalInformationFormControls.phone.invalid &&
+        (personalInformationFormControls.phone.dirty ||
+          personalInformationFormControls.phone.touched)
+      " [class.is-valid]="
+        !personalInformationFormControls.phone.invalid &&
+        (personalInformationFormControls.phone.dirty ||
+          personalInformationFormControls.phone.touched)
+      " type="text" minlength="10" maxlength="10" placeholder="322 8268 648" (keydown)="numericValidator($event)"
+          formControlName="phone" class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.phone.invalid &&
+              (personalInformationFormControls.phone.dirty ||
+                personalInformationFormControls.phone.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.phone.errors.required" class="invalid-feedback">
+            Please provide phone number
+          </div>
+          <div *ngIf="personalInformationFormControls.phone.errors.minlength" class="invalid-feedback-warning">
+            Invalid phone number
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Co Applicant Name <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " [class.is-valid]="
+              !personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " (keydown)="textValidator($event)" type="text" maxlength="25" formControlName="name"
+          class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.name.errors.required" class="invalid-feedback">
+            Please provide name
+          </div>
+          <div *ngIf="personalInformationFormControls.name.errors.minlength" class="invalid-feedback-warning">
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Co Applicant CNIC <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+        personalInformationFormControls.phone.invalid &&
+        (personalInformationFormControls.phone.dirty ||
+          personalInformationFormControls.phone.touched)
+      " [class.is-valid]="
+        !personalInformationFormControls.phone.invalid &&
+        (personalInformationFormControls.phone.dirty ||
+          personalInformationFormControls.phone.touched)
+      " type="text" minlength="10" maxlength="10" placeholder="322 8268 648" (keydown)="numericValidator($event)"
+          formControlName="phone" class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.phone.invalid &&
+              (personalInformationFormControls.phone.dirty ||
+                personalInformationFormControls.phone.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.phone.errors.required" class="invalid-feedback">
+            Please provide phone number
+          </div>
+          <div *ngIf="personalInformationFormControls.phone.errors.minlength" class="invalid-feedback-warning">
+            Invalid phone number
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Address of property <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " [class.is-valid]="
+              !personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " (keydown)="textValidator($event)" type="text" maxlength="25" formControlName="name"
+          class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.name.errors.required" class="invalid-feedback">
+            Please provide name
+          </div>
+          <div *ngIf="personalInformationFormControls.name.errors.minlength" class="invalid-feedback-warning">
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Owner Name <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " [class.is-valid]="
+              !personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " (keydown)="textValidator($event)" type="text" maxlength="25" formControlName="name"
+          class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.name.errors.required" class="invalid-feedback">
+            Please provide name
+          </div>
+          <div *ngIf="personalInformationFormControls.name.errors.minlength" class="invalid-feedback-warning">
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Type of ownership <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <select name="" id="" class="form-control form-control-solid custom-select">
+          <option value="marla">Marla</option>
+          <option value="kanal">Kanal</option>
+        </select>
+        <div *ngIf="
+            personalInformationFormControls.pmdc.invalid &&
+            (personalInformationFormControls.pmdc.dirty ||
+              personalInformationFormControls.pmdc.touched)
+          "></div>
+
+        <div *ngIf="
+            personalInformationFormControls.pmdc.invalid &&
+            (personalInformationFormControls.pmdc.dirty ||
+              personalInformationFormControls.pmdc.touched)
+          " class="invalid-feedback">
+          Invalid PMDC No.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-3 col-form-label">Authority <span class="text-danger">*</span></label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " [class.is-valid]="
+              !personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            " (keydown)="textValidator($event)" type="text" maxlength="25" formControlName="name"
+          class="form-control form-control-solid form-control-lg" />
+        <div *ngIf="
+              personalInformationFormControls.name.invalid &&
+              (personalInformationFormControls.name.dirty ||
+                personalInformationFormControls.name.touched)
+            ">
+          <div *ngIf="personalInformationFormControls.name.errors.required" class="invalid-feedback">
+            Please provide name
+          </div>
+          <div *ngIf="personalInformationFormControls.name.errors.minlength" class="invalid-feedback-warning">
+            Minimum charactors length should be 5
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <div class="d-flex justify-content-center">
+          <button type="button" [disabled]="
+                personalInformationForm.status.toLowerCase() === 'invalid'
+              " (click)="submit('next')" class="btn btn-lg btn-primary width-7">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
