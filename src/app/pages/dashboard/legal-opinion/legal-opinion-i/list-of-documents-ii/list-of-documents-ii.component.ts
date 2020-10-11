@@ -433,7 +433,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
 
     Packer.toBlob(doc).then((blob) => {
       console.log(blob);
-      saveAs(blob, "example.docx");
+      saveAs(blob, "legal-opinion-1.docx");
       console.log("Document created successfully");
     });
   }
