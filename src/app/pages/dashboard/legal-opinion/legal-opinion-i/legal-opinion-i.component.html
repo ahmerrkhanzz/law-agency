@@ -11,15 +11,17 @@
                         <a ngbNavLink (click)="selectTab(tab)">{{ tab.title }}</a>
                         <ng-template ngbNavContent>
                             <ul ngbNav #navChild="ngbNav" class="nav-tabs nav-tabs-child">
-                                <li [ngbNavItem]="child.id" *ngFor="let child of formsNav">
+                                <li [ngbNavItem]="child.id" *ngFor="let child of formsNav" [disabled]="true">
                                     <a ngbNavLink (click)="selectChildTab(child)">{{ child.title }}</a>
                                     <ng-template ngbNavContent>
                                         <app-general-information (proceed)="validated($event)"
                                             (unauthorized)="isUserLoggedIn($event)" *ngIf="selectedChildTab.id === 1">
                                         </app-general-information>
-                                        <app-list-of-documents *ngIf="selectedChildTab.id === 2">
+                                        <app-list-of-documents (proceed)="validated($event)"
+                                        (unauthorized)="isUserLoggedIn($event)" *ngIf="selectedChildTab.id === 2">
                                         </app-list-of-documents>
-                                        <app-list-of-documents-ii *ngIf="selectedChildTab.id === 3">
+                                        <app-list-of-documents-ii (proceed)="validated($event)"
+                                        (unauthorized)="isUserLoggedIn($event)" *ngIf="selectedChildTab.id === 3">
                                         </app-list-of-documents-ii>
                                     </ng-template>
                                 </li>

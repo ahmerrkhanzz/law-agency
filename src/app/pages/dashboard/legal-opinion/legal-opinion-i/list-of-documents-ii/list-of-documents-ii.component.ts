@@ -1,15 +1,30 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { numericValidator, removeDuplicates, textValidator } from 'src/app/shared/globalfunctions';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import {
+  numericValidator,
+  removeDuplicates,
+  textValidator,
+} from "src/app/shared/globalfunctions";
+import { Packer } from "docx";
+import { saveAs } from "file-saver";
+import { DocumentCreator } from "./cv-generator";
 
 @Component({
-  selector: 'app-list-of-documents-ii',
-  templateUrl: './list-of-documents-ii.component.html',
-  styleUrls: ['./list-of-documents-ii.component.scss']
+  selector: "app-list-of-documents-ii",
+  templateUrl: "./list-of-documents-ii.component.html",
+  styleUrls: ["./list-of-documents-ii.component.scss"],
 })
 export class ListOfDocumentsIiComponent implements OnInit {
-
   @Input() savedForm: any;
   @Output() unauthorized = new EventEmitter<boolean>(false);
   @Output() proceed = new EventEmitter<object>(null);
@@ -44,11 +59,21 @@ export class ListOfDocumentsIiComponent implements OnInit {
 
   // formatter = (cities: City) => cities.name;
 
+
+
+  public experiences = [];
+
+  public education = [];
+
+  public beforeTransactions = [];
+  public afterTransactions = []
+  public intro = []
+
   constructor(
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private _toast: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.languages = [
@@ -76,94 +101,64 @@ export class ListOfDocumentsIiComponent implements OnInit {
     };
 
     this.personalInformationForm = this.formBuilder.group({
-      image: [null, Validators.required],
-      pmdc: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      name: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      email: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-        ],
-      ],
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      phone: [
-        "",
-        [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      date_of_birth: [""],
-      country: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      city: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      address: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(40),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      language: ["", Validators.required],
-      speciality: ["", Validators.required],
-      gender: ["", Validators.required],
-      is_instant: [true, Validators.required],
-      summary: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(20),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
+      image: ["", Validators.required],
     });
 
     // this.getSpecialities();
-    if (localStorage.hasOwnProperty("selectedDoctor")) {
-      this.selectedDoctor = JSON.parse(localStorage.getItem("selectedDoctor"));
-      this.patchFormValues(this.selectedDoctor);
-      console.log(this.personalInformationForm);
+    if (localStorage.hasOwnProperty("personalInformation")) {
+      const userData = JSON.parse(localStorage.getItem('personalInformation'))
+      const { name, cnic, co_applicant_name, co_applicant_cnic, owner_name, ownership_type, authority, address, property } = userData
+      this.experiences = [
+        {
+          summary: `From the perusal of the above documents, prima facie, the copies of the documents show that ${owner_name} W/o Syed Arshad Ali is the owner of property measuring ${property.area}-${property.unit}, acquired through sale deed & mutation in her favour. The owner is legally competent to sell/agree to sell the above described property to ${name} (Purchaser). The Purchaser after having transferred the same in his name through sale deed & mutation, shall get Fard for Mortgage and mortgage the same with the bank after completing all legal & codal formalities of the bank as per bank policy. Prima Facie, the bank can accept the said property for creation of token registered Mortgage coupled with equitable mortgage after completing of legal formalities. COMMENTS ON THE PROPERTY: POSITIVE  () NEGATIVE (x)  PENDING (x )`,
+        },
+      ];
+
+      this.education = [
+        {
+          degree: "We have reviewed the copies of the following documents:",
+          notes: `1. Copy of agreement to sell, between ${owner_name} (Seller) & ${name} (Purchaser), regarding House measuring ${property.area}-${property.unit}, Situated at ${address}.\n\n2. Copy of Sale Deed, in favour of ${owner_name} W/o Syed Arshad Ali, regarding property measuring ${property.area}-${property.unit}, vide registered document No. 16726, Book No.1, Volume No. 6291, Dated 10-06-2016, registered with Sub-Registrar Nishter Town, Lahore. \n3. Copy of Mutation No. 758, in favour of Zahida Perveen regarding said property.\n\n4. Copy of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain Shah, regarding property measuring 15-Marla, vide registered document No. 21688 Book 1, Volume 5146, Dated 17-09-2014, registered with sub registrar Nister Town Lahore. \n\n5. Copy of Mutation No. 44792, dated 21-10-2015, in favor of Mrs. Musa Moti Razia regarding property measuring 15-Marla. \n\n6. Copy of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain regarding property measuring 01-Marla, vide registered document No. 27201 book 1, volume 5257, dated 2-12-2014, registered with sub registrar Nister Town Lahore.\n\n7. Copy of Mutation No. 45318, dated 19-05-2015 in favor of Mrs. Musa Moti Razia regarding property measuring 01-Marla.\n\n8. Copy of Sanction/Approval letter for residential construction vide no. 441-D (P&C)-NST/17 dated 29-04-2017 issued by the Zonal Officer Nishter Town Lahore.\n\n9. Copy of Approved Map of the House.`,
+        },
+      ];
+
+      this.beforeTransactions = [
+        {
+          notes: `1. Original agreement to sell, between ${owner_name} (Seller) & ${name} (Purchaser), regarding House measuring ${property.area}-${property.unit}, Situated at ${address}.\n\n2. Original & CTC of Sale Deed, in favour of ${owner_name} W/o Syed Arshad Ali, regarding property measuring ${property.area}-${property.unit}, vide registered document No. 16726, Book No.1, Volume No. 6291, Dated 10-06-2016, registered with Sub-Registrar Nishter Town, Lahore.\n\n3. CTC of Mutation No. 758, in favour of Zahida Perveen regarding said property.\n\n4. Original & CTC of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain Shah, regarding property measuring 15-Marla, vide registered document No. 21688 Book 1, Volume 5146, Dated 17-09-2014, registered with sub registrar Nister Town Lahore.\n\n5. CTC of Mutation No. 44792, dated 21-10-2015, in favor of Mrs. Musa Moti Razia regarding property measuring 15-Marla\n\n6. Original & CTC of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain regarding property measuring 01-Marla, vide registered document No. 27201 book 1, volume 5257, dated 2-12-2014, registered with sub registrar Nister Town Lahore.\n\n7. CTC of Mutation No. 45318, dated 19-05-2015 in favor of Mrs. Musa Moti Razia regarding property measuring 01-Marla.\n\n8. Original Sanction/Approval letter for residential construction vide no. 441-D (P&C)-NST/17 dated 29-04-2017 issued by the Zonal Officer Nishter Town Lahore.\n\n9. Original Approved Map of the House.\n\n10. CTC of Sale Deed in favour of Mr. Abdul Majeed S/o Abdul Rasheed, regarding said property, vide registered Document No. 9869, Book No. 01, volume No. 1108, dated 12-09-1990, registered with concerned Sub-Registrar, Lahore.\n\n11. CTC of Mutation, in favour of Mr. Abdul Majeed S/o Abdul Rasheed, regarding said property.\n\n12. Original Fard for sale, in the name of ${owner_name}, regarding property measuring ${property.area}-${property.unit}, issued by concerned Halqa Patwari, duly countersigned by concerned Revenue officers.\n\n13. Original Aks Shajra of the said property duly signed & stamped by Halqa Patwari.\n\n14. Original Moqa Naqsha of the said property, with proper dimensions & surroundings, duly signed & stamped by Halqa Patwari.\n\n15. CTC of Aks Masavi of the relevant Khasra Numbers (showing Current & Previous) of the said property\n\n16. Original N.E.C, in favour of ${owner_name}, regarding property measuring ${property.area}-${property.unit}, issued by concerned Sub-Registrar.\n\n17. Publication of widely circulated newspaper, in respect of the said sale agreement, wherein objection shall be invited if any.\n\n18. Complete Chain of documents Maximum (If Available)`,
+        },
+      ];
+      this.afterTransactions = [
+        {
+          notes: `A. Sale Deed, in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}.\n\nB. Mutation in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}.\n\nC. Fard for mortgage, in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}, duly countersigned by concerned Tehsildar.\n\nD. Registered Mortgage deed, in favour of BIPL.\n\nE. Lien in revenue record, in favour of BIPL.`,
+        },
+      ];
+      this.intro = [
+        {
+          name: 'Product',
+          value: 'Legal Opinion I'
+        },
+        {
+          name: 'Name of Applicant',
+          value: `${name}`
+        },
+        {
+          name: 'CNIC',
+          value: `${cnic}`
+        },{
+          name: 'Address of Property',
+          value: `${address}`
+        },{
+          name: 'Name of the Owner',
+          value: `${owner_name}`
+        },
+        {
+          name: 'Type of ownership',
+          value: `${ownership_type}`
+        },
+        {
+          name: 'Applicable Authority',
+          value: `${authority}`
+        },
+      ]
     }
 
     // else if (
@@ -426,33 +421,20 @@ export class ListOfDocumentsIiComponent implements OnInit {
     console.log(this.personalInformationForm);
   }
 
-  /**
-   *
-   *  Typehead Search Functions for City and Country
-   * @memberof PersonalInformationComponent
-   */
-  // citySearch = (text$: Observable<string>) =>
-  //   text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged(),
-  //     filter((term) => term.length >= 2),
-  //     map((term) =>
-  //       cities
-  //         .filter((city) => new RegExp(term, "mi").test(city.name))
-  //         .slice(0, 10)
-  //     )
-  //   );
+  public download(): void {
+    const documentCreator = new DocumentCreator();
+    const doc = documentCreator.create([
+      this.experiences,
+      this.education,
+      this.beforeTransactions,
+      this.afterTransactions,
+      this.intro
+    ]);
 
-  // countrySearch = (text$: Observable<string>) =>
-  //   text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged(),
-  //     filter((term) => term.length >= 2),
-  //     map((term) =>
-  //       cities
-  //         .filter((country) => new RegExp(term, "mi").test(country.name))
-  //         .slice(0, 10)
-  //     )
-  //   );
-
+    Packer.toBlob(doc).then((blob) => {
+      console.log(blob);
+      saveAs(blob, "example.docx");
+      console.log("Document created successfully");
+    });
+  }
 }

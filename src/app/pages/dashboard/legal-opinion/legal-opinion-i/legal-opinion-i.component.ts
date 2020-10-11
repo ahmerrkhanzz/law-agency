@@ -12,7 +12,7 @@ export class LegalOpinionIComponent implements OnInit {
 
   public savedForm: object = {};
   public loading: boolean = false;
-  @ViewChild("nav") nav;
+  @ViewChild("navChild") nav;
   public doctors: any[] = [
     {
       title: "Legal Opinion 1",
@@ -62,7 +62,7 @@ export class LegalOpinionIComponent implements OnInit {
   constructor(
     private _toast: ToastrService,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.hasOwnProperty("selectedDoctor")) {
@@ -79,12 +79,14 @@ export class LegalOpinionIComponent implements OnInit {
   }
 
   controls = (direction, tabId, form, formName?: string) => {
+    console.log({ direction, tabId, form, formName })
     if (direction === "next") {
-      this.nav.select(this.selectedTab.id + 1);
-      const selectedTab = this.doctors.filter((e) => e.id === tabId + 1);
-      this.selectedTab = selectedTab[0];
-      this.doctorArray.push(form);
-      this.savedForm[formName] = form;
+      this.nav.select(this.selectedChildTab.id + 1);
+      const selectedTab = this.formsNav.filter((e) => e.id === tabId + 1);
+      this.selectedChildTab = selectedTab[0];
+      // this.doctorArray.push(form);
+      // this.savedForm[formName] = form;
+      localStorage.setItem(formName, JSON.stringify(form))
       console.log(this.savedForm);
     } else if (direction === "back") {
       this.nav.select(this.selectedTab.id - 1);
@@ -107,7 +109,7 @@ export class LegalOpinionIComponent implements OnInit {
     if (event.direction) {
       this.controls(
         event.direction,
-        this.selectedTab.id,
+        this.selectedChildTab.id,
         event.form,
         event.name
       );

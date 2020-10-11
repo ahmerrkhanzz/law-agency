@@ -48,7 +48,7 @@ export class ListOfDocumentsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private _toast: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.languages = [
@@ -77,92 +77,12 @@ export class ListOfDocumentsComponent implements OnInit {
 
     this.personalInformationForm = this.formBuilder.group({
       image: [null, Validators.required],
-      pmdc: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      name: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      email: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-        ],
-      ],
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      phone: [
-        "",
-        [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      date_of_birth: [""],
-      country: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      city: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(25),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      address: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(40),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
-      language: ["", Validators.required],
-      speciality: ["", Validators.required],
-      gender: ["", Validators.required],
-      is_instant: [true, Validators.required],
-      summary: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(20),
-          Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
-        ],
-      ],
     });
 
     // this.getSpecialities();
     if (localStorage.hasOwnProperty("selectedDoctor")) {
       this.selectedDoctor = JSON.parse(localStorage.getItem("selectedDoctor"));
-      this.patchFormValues(this.selectedDoctor);
+      // this.patchFormValues(this.selectedDoctor);
       console.log(this.personalInformationForm);
     }
 
@@ -189,52 +109,6 @@ export class ListOfDocumentsComponent implements OnInit {
     return this.personalInformationForm["controls"];
   }
 
-  /**
-   *
-   *  On Single Item Selection of Multi Select Dropdown
-   * @param {object} item
-   * @memberof PersonalInformationComponent
-   */
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-
-  /**
-   *
-   * On Selection of all options in multi select dropdown
-   * @param {object} items array of selected items
-   * @memberof PersonalInformationComponent
-   */
-  onSelectAll(items: any) {
-    console.log(items);
-  }
-
-  /**
-   * Gender Selection
-   *
-   * @param {object} event gender object
-   * @memberof PersonalInformationComponent
-   */
-  changeInstant(event) {
-    console.log(this.personalInformationForm);
-    if (this.personalInformationForm.value.is_instant) {
-      this.selectedSpecialities = [
-        {
-          id: null,
-          name: "General Phsycian",
-          file: null,
-        },
-      ];
-      this.personalInformationForm.get("speciality").clearValidators();
-      this.personalInformationForm.get("speciality").updateValueAndValidity();
-    } else {
-      this.selectedSpecialities = [];
-      this.personalInformationForm
-        .get("speciality")
-        .setValidators([Validators.required]);
-      this.personalInformationForm.get("speciality").updateValueAndValidity();
-    }
-  }
 
   /**
    *
@@ -261,22 +135,6 @@ export class ListOfDocumentsComponent implements OnInit {
     event.target.value = null;
   }
 
-  // getSpecialities() {
-  //   this._adminDoctorsService.getSpecialities().subscribe(
-  //     (res: any) => {
-  //       this.specialities = res.data;
-  //     },
-  //     (err: any) => {
-  //       if (err && err.status === 401) {
-  //         console.log(err);
-  //         localStorage.removeItem("token");
-  //         this._toast.error("Token Expired", "Error");
-  //         this.unauthorized.emit(true);
-  //       }
-  //     }
-  //   );
-  // }
-
   cancelAvatar() {
     if (localStorage.hasOwnProperty("selectedDoctor")) {
       this.preview = this.selectedDoctor.image;
@@ -297,13 +155,31 @@ export class ListOfDocumentsComponent implements OnInit {
    * @memberof PersonalInformationComponent
    */
   submit(direction) {
-    // this.proceed.emit(
-    //   this._adminDoctorsService.formValidation(
-    //     direction,
-    //     this.personalInformationForm,
-    //     "personalInformation"
-    //   )
-    // );
+    this.proceed.emit(
+      this.formValidation(
+        direction,
+        this.personalInformationForm,
+        "list_of_documents_i"
+      )
+    );
+  }
+
+  public formValidation(direction, form, name?) {
+    if (form.status.toLowerCase() === "invalid") {
+      return {
+        validated: false,
+        direction: direction,
+        form: form,
+      };
+      // return false;
+    } else {
+      return {
+        validated: true,
+        direction: direction,
+        form: form.value,
+        name: name,
+      };
+    }
   }
 
   // trimValidation(event) {
@@ -314,48 +190,6 @@ export class ListOfDocumentsComponent implements OnInit {
   //   })
   // }
 
-  setInputFilter(
-    textbox: Element,
-    inputFilter: (value: string) => boolean
-  ): void {
-    [
-      "input",
-      "keydown",
-      "keyup",
-      "mousedown",
-      "mouseup",
-      "select",
-      "contextmenu",
-      "drop",
-    ].forEach(function (event) {
-      textbox.addEventListener(event, function (
-        this: (HTMLInputElement | HTMLTextAreaElement) & {
-          oldValue: string;
-          oldSelectionStart: number | null;
-          oldSelectionEnd: number | null;
-        }
-      ) {
-        if (inputFilter(this.value)) {
-          this.oldValue = this.value;
-          this.oldSelectionStart = this.selectionStart;
-          this.oldSelectionEnd = this.selectionEnd;
-        } else if (Object.prototype.hasOwnProperty.call(this, "oldValue")) {
-          this.value = this.oldValue;
-          if (
-            this.oldSelectionStart !== null &&
-            this.oldSelectionEnd !== null
-          ) {
-            this.setSelectionRange(
-              this.oldSelectionStart,
-              this.oldSelectionEnd
-            );
-          }
-        } else {
-          this.value = "";
-        }
-      });
-    });
-  }
 
   patchFormValues(data) {
     const {

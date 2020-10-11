@@ -1,27 +1,16 @@
 <div class="personal">
     <form [formGroup]="personalInformationForm">
         <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Total area of property <span
+            <label for="" class="col-sm-3 col-form-label">Title Document <span
                     class="text-danger">*</span></label>
             <div class="col-sm-9">
                 <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
-                            id="inputGroupFile02">
-                        <label class="custom-file-label" for="inputGroupFile02"
-                            aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    </div>
+                    <input type="file" formControlName="image" class="form-control form-control-solid form-control-lg"
+                    id="inputGroupFile02">
                     <div class="input-group-append">
                         <button class="btn btn-primary ml-2 mr-2">Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
-                </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
                 </div>
             </div>
         </div>
@@ -32,23 +21,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled disabled readonly class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                <!--  -->
             </div>
         </div>
         <div class="form-group row">
@@ -56,23 +39,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -81,23 +58,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -106,23 +77,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -131,23 +96,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -155,23 +114,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -179,23 +132,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -203,23 +150,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -227,23 +168,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
         <div class="form-group row">
@@ -251,23 +186,17 @@
             <div class="col-sm-9">
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input form-control form-control-solid form-control-lg"
+                        <input type="file" disabled class="custom-file-input form-control form-control-solid form-control-lg"
                             id="inputGroupFile02">
                         <label class="custom-file-label" for="inputGroupFile02"
                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary ml-2 mr-2">Upload</button>
+                        <button class="btn btn-primary ml-2 mr-2" disabled>Upload</button>
                         <button class="btn btn-danger">Delete</button>
                     </div>
                 </div>
-                <div *ngIf="
-              personalInformationFormControls.pmdc.invalid &&
-              (personalInformationFormControls.pmdc.dirty ||
-                personalInformationFormControls.pmdc.touched)
-            " class="invalid-feedback">
-                    Invalid PMDC No.
-                </div>
+                
             </div>
         </div>
 
@@ -275,9 +204,7 @@
         <div class="form-group row">
             <div class="col-sm-12">
                 <div class="d-flex justify-content-center">
-                    <button type="button" [disabled]="
-                  personalInformationForm.status.toLowerCase() === 'invalid'
-                " (click)="submit('next')" class="btn btn-lg btn-primary width-7">
+                    <button type="button" (click)="submit('next')" [disabled]="personalInformationForm.status.toLowerCase() === 'invalid'" class="btn btn-lg btn-primary width-7">
                         Save
                     </button>
                 </div>

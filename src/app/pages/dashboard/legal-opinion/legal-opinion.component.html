@@ -1,87 +1,81 @@
 <div class="container dashboard">
-    <div class="row">
-      <div class="col-12">
-        <h1 class="heading">Select type of legal opinion</h1>
+  <div class="row">
+    <div class="col-12">
+      <h1 class="heading">Select type of legal opinion</h1>
+    </div>
+  </div>
+  <div class="row dashboard__content">
+    <div class="col-sm-3">
+      <button class="btn btn-block btn-light-primary" (click)="selectedSection = 'purchase'; isPurchase = null"
+        [ngClass]="{ active: selectedSection === 'purchase' }">Purchase</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-block btn-light-primary" (click)="selectedSection = 'construction'"
+        [ngClass]="{ active: selectedSection === 'construction' }">Construction</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-block btn-light-primary" (click)="selectedSection = 'btf'"
+        [ngClass]="{ active: selectedSection === 'btf' }">BTF</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-block btn-light-primary" (click)="selectedSection = 'stuff'"
+        [ngClass]="{ active: selectedSection === 'stuff' }">Staff Loan</button>
+    </div>
+    <div class="col-sm-12 mt-5" *ngIf="selectedSection === 'purchase'">
+      <div class="radio-list radio-list-linear d-flex justify-content-center">
+        <label class="radio mr-3 d-flex align-items-center" for="purchase">Purchase
+          <input id="purchase" type="radio" [value]="isPurchase" name="property_type" (change)="isPurchase = true" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio mr-3 d-flex align-items-center" for="construction">Land + Construction
+          <input type="radio" id="construction" [value]="isPurchase" name="property_type"
+            (change)="isPurchase = false" />
+          <span class="checkmark"></span>
+        </label>
       </div>
     </div>
-    <div class="row dashboard__content">
-      <div class="col-sm-3">
-        <button class="btn btn-block btn-light-primary">Purchase</button>
-      </div>
-      <div class="col-sm-3">
-        <button class="btn btn-block btn-light-primary">Construction</button>
-      </div>
-      <div class="col-sm-3">
-        <button class="btn btn-block btn-light-primary">BTF</button>
-      </div>
-      <div class="col-sm-3">
-        <button class="btn btn-block btn-light-primary">Staff Loan</button>
-      </div>
-      <div class="col-sm-12 mt-5">
-        <div class="radio-list">
-          <label class="radio mr-3" for="purchase"
-            >Purchase
-            <input id="purchase" type="radio" [value]="isPurchase" name="property_type" (change)="changePropertyType($event)"/>
-            <span class="checkmark"></span>
-          </label>
-          <label class="radio mr-3" for="construction"
-            >Land + Construction
-            <input type="radio" id="construction" [value]="isPurchase" name="property_type" (change)="changePropertyType($event)"/>
-            <span class="checkmark"></span>
-          </label>
-        </div>
-      </div>
-      <div class="col-sm-6" *ngIf="isPurchase">
-        <div class="card">
-          <div class="card-header">
-            <h4>If your desired property is not in the list, add new</h4>
-            <div class="card-header-actions">
-              <div class="buttons">
-                <div ngbdropdown="" class="d-inline-block">
-                  <button
-                    id="dropdownBasic1"
-                    ngbdropdowntoggle=""
-                    class="dropdown-toggle btn btn-light-primary"
-                    (click)="addProperty()"
-                  >
-                    <svg
-                      height="32px"
-                      id="Layer_1"
-                      style="enable-background: new 0 0 32 32"
-                      version="1.1"
-                      viewBox="0 0 32 32"
-                      width="32px"
-                      xml:space="preserve"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                    >
-                      <style type="text/css">
-                        .st1 {
-                          fill: #0096c7;
-                        }
-                      </style>
-                      <path
-                        class="st1"
-                        d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"
-                      />
-                    </svg>
-                  </button>
+    <div class="col-sm-12 mt-5" *ngIf="isPurchase && selectedSection === 'purchase'">
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h4>If your desired property is not in the list, add new</h4>
+              <div class="card-header-actions">
+                <div class="buttons">
+                  <div ngbdropdown="" class="d-inline-block">
+                    <button id="dropdownBasic1" ngbdropdowntoggle="" class="dropdown-toggle btn btn-light-primary"
+                      (click)="addProperty()">
+                      <svg height="32px" id="Layer_1" style="enable-background: new 0 0 32 32" version="1.1"
+                        viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <style type="text/css">
+                          .st1 {
+                            fill: #0096c7;
+                          }
+                        </style>
+                        <path class="st1"
+                          d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-body">
-            <h6>Select any property from the list:</h6>
-            <select name="" id="" [ngModel]="property" class="form-control custom-select form-constol-lg">
-              <option>DHA Properties</option>
-              <option>Bahria Town Properties</option>
-            </select>
+            <div class="card-body">
+              <h6>Select any property from the list:</h6>
+              <select name="" id="" [ngModel]="property" class="form-control custom-select form-constol-lg">
+                <option>DHA Properties</option>
+                <option>Bahria Town Properties</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-12 d-flex justify-content-center mt-5 width-7" *ngIf="isPurchase">
-        <button class="btn btn-large btn-primary width-7" (click)="submitProperty()">Select</button>
+        <div class="col-sm-3"></div>
       </div>
     </div>
+    <div class="col-sm-12 d-flex justify-content-center mt-5 width-7" *ngIf="isPurchase">
+      <button class="btn btn-large btn-primary width-7" (click)="submitProperty()">Select</button>
+    </div>
   </div>
-  
+</div>

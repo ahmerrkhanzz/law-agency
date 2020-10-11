@@ -124,6 +124,11 @@
   &-sm {
     font-size: 0.875rem !important;
   }
+  &.active {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: #fff;
+  }
 }
 
 //FORMS
@@ -676,6 +681,13 @@
     border: none;
     img {
       width: 2rem;
+    }
+  }
+  &-append{
+    .form-control{
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: 3.5rem;
     }
   }
 }

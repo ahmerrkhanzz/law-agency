@@ -11,6 +11,7 @@ import { AddPropertyComponent } from '../add-property/add-property.component';
 export class LegalOpinionComponent implements OnInit {
   public isPurchase: boolean = false;
   public property: string = ""
+  public selectedSection: string = ""
   constructor(private _modalService: NgbModal, private _router: Router) { }
 
 ngOnInit(): void {}
@@ -27,9 +28,6 @@ addProperty() {
   modalRef.componentInstance.title = "Property";
 }
 
-changePropertyType(event) {
-  this.isPurchase = !this.isPurchase
-}
 
 submitProperty() {
   this._router.navigate(['/pages/dashboard/legal-opinion'])
