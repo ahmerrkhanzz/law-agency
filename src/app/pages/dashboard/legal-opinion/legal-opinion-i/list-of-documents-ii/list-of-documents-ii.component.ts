@@ -7,28 +7,29 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import {
   numericValidator,
   removeDuplicates,
   textValidator,
-} from "src/app/shared/globalfunctions";
-import { Packer } from "docx";
-import { saveAs } from "file-saver";
-import { DocumentCreator } from "./cv-generator";
+} from 'src/app/shared/globalfunctions';
+import { Packer } from 'docx';
+import { saveAs } from 'file-saver';
+import { DocumentCreator } from './cv-generator';
+import { DHADocumentCreator } from './dha-generator';
 
 @Component({
-  selector: "app-list-of-documents-ii",
-  templateUrl: "./list-of-documents-ii.component.html",
-  styleUrls: ["./list-of-documents-ii.component.scss"],
+  selector: 'app-list-of-documents-ii',
+  templateUrl: './list-of-documents-ii.component.html',
+  styleUrls: ['./list-of-documents-ii.component.scss'],
 })
 export class ListOfDocumentsIiComponent implements OnInit {
   @Input() savedForm: any;
   @Output() unauthorized = new EventEmitter<boolean>(false);
   @Output() proceed = new EventEmitter<object>(null);
-  @ViewChild("avatar") avatar: ElementRef;
+  @ViewChild('avatar') avatar: ElementRef;
 
   public languages = [];
   public specialities: any[] = [];
@@ -37,7 +38,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
   public profileImg: File;
   public dob: any;
   public preview: string =
-    "../../../../../assets/images/doctor-placeholder.jpg";
+    '../../../../../assets/images/doctor-placeholder.jpg';
   public personalInformationForm: FormGroup;
   public textValidator = textValidator;
   public numericValidator = numericValidator;
@@ -46,7 +47,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
   public selectedSpecialities: any[] = [
     {
       id: null,
-      name: "General Phsycian",
+      name: 'General Phsycian',
       file: null,
     },
   ];
@@ -59,55 +60,67 @@ export class ListOfDocumentsIiComponent implements OnInit {
 
   // formatter = (cities: City) => cities.name;
 
-
-
   public experiences = [];
 
   public education = [];
 
   public beforeTransactions = [];
-  public afterTransactions = []
-  public intro = []
+  public afterTransactions = [];
+  public intro = [];
+
+  public dha_experiences = [];
+  public dha_education = [];
+  public dha_beforeTransactions = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private _toast: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.languages = [
-      { id: 1, name: "English" },
-      { id: 2, name: "Urdu" },
-      { id: 3, name: "Turkish" },
-      { id: 4, name: "German" },
-      { id: 5, name: "Arabic" },
-      { id: 6, name: "Spanish" },
-      { id: 7, name: "Portugeese" },
+      { id: 1, name: 'English' },
+      { id: 2, name: 'Urdu' },
+      { id: 3, name: 'Turkish' },
+      { id: 4, name: 'German' },
+      { id: 5, name: 'Arabic' },
+      { id: 6, name: 'Spanish' },
+      { id: 7, name: 'Portugeese' },
     ];
 
     this.selectedItems = [
-      { id: 3, name: "Pune" },
-      { id: 4, name: "Navsari" },
+      { id: 3, name: 'Pune' },
+      { id: 4, name: 'Navsari' },
     ];
     this.dropdownSettings = {
       singleSelection: false,
-      idField: "id",
-      textField: "name",
-      selectAllText: "Select All",
-      unSelectAllText: "UnSelect All",
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
       itemsShowLimit: 4,
       allowSearchFilter: true,
     };
 
     this.personalInformationForm = this.formBuilder.group({
-      image: ["", Validators.required],
+      image: ['', Validators.required],
     });
 
     // this.getSpecialities();
-    if (localStorage.hasOwnProperty("personalInformation")) {
-      const userData = JSON.parse(localStorage.getItem('personalInformation'))
-      const { name, cnic, co_applicant_name, co_applicant_cnic, owner_name, ownership_type, authority, address, property } = userData
+    if (localStorage.hasOwnProperty('personalInformation')) {
+      const userData = JSON.parse(localStorage.getItem('personalInformation'));
+      const {
+        name,
+        cnic,
+        co_applicant_name,
+        co_applicant_cnic,
+        owner_name,
+        ownership_type,
+        authority,
+        address,
+        property,
+      } = userData;
       this.experiences = [
         {
           summary: `From the perusal of the above documents, prima facie, the copies of the documents show that ${owner_name} W/o Syed Arshad Ali is the owner of property measuring ${property.area}-${property.unit}, acquired through sale deed & mutation in her favour. The owner is legally competent to sell/agree to sell the above described property to ${name} (Purchaser). The Purchaser after having transferred the same in his name through sale deed & mutation, shall get Fard for Mortgage and mortgage the same with the bank after completing all legal & codal formalities of the bank as per bank policy. Prima Facie, the bank can accept the said property for creation of token registered Mortgage coupled with equitable mortgage after completing of legal formalities. COMMENTS ON THE PROPERTY: POSITIVE  () NEGATIVE (x)  PENDING (x )`,
@@ -116,7 +129,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
 
       this.education = [
         {
-          degree: "We have reviewed the copies of the following documents:",
+          degree: 'We have reviewed the copies of the following documents:',
           notes: `1. Copy of agreement to sell, between ${owner_name} (Seller) & ${name} (Purchaser), regarding House measuring ${property.area}-${property.unit}, Situated at ${address}.\n\n2. Copy of Sale Deed, in favour of ${owner_name} W/o Syed Arshad Ali, regarding property measuring ${property.area}-${property.unit}, vide registered document No. 16726, Book No.1, Volume No. 6291, Dated 10-06-2016, registered with Sub-Registrar Nishter Town, Lahore. \n3. Copy of Mutation No. 758, in favour of Zahida Perveen regarding said property.\n\n4. Copy of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain Shah, regarding property measuring 15-Marla, vide registered document No. 21688 Book 1, Volume 5146, Dated 17-09-2014, registered with sub registrar Nister Town Lahore. \n\n5. Copy of Mutation No. 44792, dated 21-10-2015, in favor of Mrs. Musa Moti Razia regarding property measuring 15-Marla. \n\n6. Copy of sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain regarding property measuring 01-Marla, vide registered document No. 27201 book 1, volume 5257, dated 2-12-2014, registered with sub registrar Nister Town Lahore.\n\n7. Copy of Mutation No. 45318, dated 19-05-2015 in favor of Mrs. Musa Moti Razia regarding property measuring 01-Marla.\n\n8. Copy of Sanction/Approval letter for residential construction vide no. 441-D (P&C)-NST/17 dated 29-04-2017 issued by the Zonal Officer Nishter Town Lahore.\n\n9. Copy of Approved Map of the House.`,
         },
       ];
@@ -131,34 +144,56 @@ export class ListOfDocumentsIiComponent implements OnInit {
           notes: `A. Sale Deed, in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}.\n\nB. Mutation in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}.\n\nC. Fard for mortgage, in favour of ${name} S/o Syed Arshad Ali, regarding property measuring ${property.area} - ${property.unit}, duly countersigned by concerned Tehsildar.\n\nD. Registered Mortgage deed, in favour of BIPL.\n\nE. Lien in revenue record, in favour of BIPL.`,
         },
       ];
+
+      this.dha_experiences = [
+        {
+          summary: `From the perusal of the above documents, prima facie, the copies of the documents show that ${owner_name} W/o Syed Arshad Ali is the owner of property measuring ${property.area}-${property.unit}, acquired through sale deed & mutation in her favour. The owner is legally competent to sell/agree to sell the above described property to ${name} (Purchaser). The Purchaser after having transferred the same in his name through sale deed & mutation, shall get Fard for Mortgage and mortgage the same with the bank after completing all legal & codal formalities of the bank as per bank policy. Prima Facie, the bank can accept the said property for creation of token registered Mortgage coupled with equitable mortgage after completing of legal formalities. COMMENTS ON THE PROPERTY: POSITIVE  () NEGATIVE (x)  PENDING (x )`,
+        },
+      ];
+
+      this.dha_education = [
+        {
+          degree: 'We have reviewed the copies of the following documents:',
+          notes: `1. Copy of Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${property.area}-${property.unit}, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Copy of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Copy Map of the house.\n`,
+        },
+      ];
+
+      this.dha_beforeTransactions = [
+        {
+          notes: `1. Original of Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${property.area}-${property.unit}, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Original of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Original approved Map of the house.\n4. Fresh permission to mortgage letter (PTM) in favour of BIPL. \n5. Registered Mortgage deed, in favour of BIPL. \n6. Lien in DHA, Lahore, in favour of BIPL.`,
+        },
+      ];
+
       this.intro = [
         {
           name: 'Product',
-          value: 'Legal Opinion I'
+          value: 'Legal Opinion I',
         },
         {
           name: 'Name of Applicant',
-          value: `${name}`
+          value: `${name}`,
         },
         {
           name: 'CNIC',
-          value: `${cnic}`
-        },{
+          value: `${cnic}`,
+        },
+        {
           name: 'Address of Property',
-          value: `${address}`
-        },{
+          value: `${address}`,
+        },
+        {
           name: 'Name of the Owner',
-          value: `${owner_name}`
+          value: `${owner_name}`,
         },
         {
           name: 'Type of ownership',
-          value: `${ownership_type}`
+          value: `${ownership_type}`,
         },
         {
           name: 'Applicable Authority',
-          value: `${authority}`
+          value: `${authority}`,
         },
-      ]
+      ];
     }
 
     // else if (
@@ -181,7 +216,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
    * @memberof PersonalInformationComponent
    */
   get personalInformationFormControls(): any {
-    return this.personalInformationForm["controls"];
+    return this.personalInformationForm['controls'];
   }
 
   /**
@@ -216,18 +251,18 @@ export class ListOfDocumentsIiComponent implements OnInit {
       this.selectedSpecialities = [
         {
           id: null,
-          name: "General Phsycian",
+          name: 'General Phsycian',
           file: null,
         },
       ];
-      this.personalInformationForm.get("speciality").clearValidators();
-      this.personalInformationForm.get("speciality").updateValueAndValidity();
+      this.personalInformationForm.get('speciality').clearValidators();
+      this.personalInformationForm.get('speciality').updateValueAndValidity();
     } else {
       this.selectedSpecialities = [];
       this.personalInformationForm
-        .get("speciality")
+        .get('speciality')
         .setValidators([Validators.required]);
-      this.personalInformationForm.get("speciality").updateValueAndValidity();
+      this.personalInformationForm.get('speciality').updateValueAndValidity();
     }
   }
 
@@ -249,7 +284,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
         this.personalInformationForm.patchValue({
           image: reader.result,
         });
-        this.personalInformationForm.get("image").updateValueAndValidity();
+        this.personalInformationForm.get('image').updateValueAndValidity();
         this.preview = reader.result as string;
       };
     }
@@ -273,15 +308,15 @@ export class ListOfDocumentsIiComponent implements OnInit {
   // }
 
   cancelAvatar() {
-    if (localStorage.hasOwnProperty("selectedDoctor")) {
+    if (localStorage.hasOwnProperty('selectedDoctor')) {
       this.preview = this.selectedDoctor.image;
       this.personalInformationForm.patchValue({
-        image: "",
+        image: '',
       });
-      this.personalInformationForm.get("image").clearValidators();
-      this.personalInformationForm.get("image").updateValueAndValidity();
+      this.personalInformationForm.get('image').clearValidators();
+      this.personalInformationForm.get('image').updateValueAndValidity();
     } else {
-      this.preview = "../../../../../assets/images/doctor-placeholder.jpg";
+      this.preview = '../../../../../assets/images/doctor-placeholder.jpg';
     }
   }
 
@@ -314,41 +349,44 @@ export class ListOfDocumentsIiComponent implements OnInit {
     inputFilter: (value: string) => boolean
   ): void {
     [
-      "input",
-      "keydown",
-      "keyup",
-      "mousedown",
-      "mouseup",
-      "select",
-      "contextmenu",
-      "drop",
+      'input',
+      'keydown',
+      'keyup',
+      'mousedown',
+      'mouseup',
+      'select',
+      'contextmenu',
+      'drop',
     ].forEach(function (event) {
-      textbox.addEventListener(event, function (
-        this: (HTMLInputElement | HTMLTextAreaElement) & {
-          oldValue: string;
-          oldSelectionStart: number | null;
-          oldSelectionEnd: number | null;
-        }
-      ) {
-        if (inputFilter(this.value)) {
-          this.oldValue = this.value;
-          this.oldSelectionStart = this.selectionStart;
-          this.oldSelectionEnd = this.selectionEnd;
-        } else if (Object.prototype.hasOwnProperty.call(this, "oldValue")) {
-          this.value = this.oldValue;
-          if (
-            this.oldSelectionStart !== null &&
-            this.oldSelectionEnd !== null
-          ) {
-            this.setSelectionRange(
-              this.oldSelectionStart,
-              this.oldSelectionEnd
-            );
+      textbox.addEventListener(
+        event,
+        function (
+          this: (HTMLInputElement | HTMLTextAreaElement) & {
+            oldValue: string;
+            oldSelectionStart: number | null;
+            oldSelectionEnd: number | null;
           }
-        } else {
-          this.value = "";
+        ) {
+          if (inputFilter(this.value)) {
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+          } else if (Object.prototype.hasOwnProperty.call(this, 'oldValue')) {
+            this.value = this.oldValue;
+            if (
+              this.oldSelectionStart !== null &&
+              this.oldSelectionEnd !== null
+            ) {
+              this.setSelectionRange(
+                this.oldSelectionStart,
+                this.oldSelectionEnd
+              );
+            }
+          } else {
+            this.value = '';
+          }
         }
-      });
+      );
     });
   }
 
@@ -381,21 +419,21 @@ export class ListOfDocumentsIiComponent implements OnInit {
         day: day,
       };
     }
-    this.preview = image.includes("no-image")
-      ? "../../../../../assets/images/doctor-placeholder.jpg"
+    this.preview = image.includes('no-image')
+      ? '../../../../../assets/images/doctor-placeholder.jpg'
       : image;
     if (!is_instant) {
       this.selectedSpecialities = speciality;
     }
     this.personalInformationForm.patchValue({
-      image: "",
+      image: '',
       pmdc: pmdc,
       name: name,
       email: email,
       phone: phone,
       password: password,
       date_of_birth:
-        date_of_birth && typeof date_of_birth === "string"
+        date_of_birth && typeof date_of_birth === 'string'
           ? this.dob
           : date_of_birth,
       country: country,
@@ -404,37 +442,55 @@ export class ListOfDocumentsIiComponent implements OnInit {
       is_instant: is_instant,
       gender: gender,
       speciality: this.selectedSpecialities,
-      language: removeDuplicates(language, "name"),
+      language: removeDuplicates(language, 'name'),
       summary: summary,
     });
-    this.languages.forEach((e) => {
-      language.forEach((element) => {
+    this.languages.forEach(e => {
+      language.forEach(element => {
         if (e.name === element.name) {
           this.selectedLanguages.push(e);
         }
       });
     });
-    this.personalInformationForm.get("password").clearValidators();
-    this.personalInformationForm.get("password").updateValueAndValidity();
-    this.personalInformationForm.get("image").clearValidators();
-    this.personalInformationForm.get("image").updateValueAndValidity();
+    this.personalInformationForm.get('password').clearValidators();
+    this.personalInformationForm.get('password').updateValueAndValidity();
+    this.personalInformationForm.get('image').clearValidators();
+    this.personalInformationForm.get('image').updateValueAndValidity();
     console.log(this.personalInformationForm);
   }
 
   public download(): void {
-    const documentCreator = new DocumentCreator();
-    const doc = documentCreator.create([
-      this.experiences,
-      this.education,
-      this.beforeTransactions,
-      this.afterTransactions,
-      this.intro
-    ]);
+    const property = localStorage.getItem('propertyType');
 
-    Packer.toBlob(doc).then((blob) => {
-      console.log(blob);
-      saveAs(blob, "legal-opinion-1.docx");
-      console.log("Document created successfully");
-    });
+    if (property === 'dha') {
+      const documentCreator = new DHADocumentCreator();
+      const doc = documentCreator.create([
+        this.dha_experiences,
+        this.dha_education,
+        this.dha_beforeTransactions,
+        this.intro,
+      ]);
+
+      Packer.toBlob(doc).then(blob => {
+        console.log(blob);
+        saveAs(blob, 'legal-opinion-1.docx');
+        console.log('Document created successfully');
+      });
+    } else {
+      const documentCreator = new DocumentCreator();
+      const doc = documentCreator.create([
+        this.experiences,
+        this.education,
+        this.beforeTransactions,
+        this.afterTransactions,
+        this.intro,
+      ]);
+
+      Packer.toBlob(doc).then(blob => {
+        console.log(blob);
+        saveAs(blob, 'legal-opinion-1.docx');
+        console.log('Document created successfully');
+      });
+    }
   }
 }

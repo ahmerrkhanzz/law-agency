@@ -30,6 +30,7 @@ addProperty() {
 
 
 submitProperty() {
+  localStorage.setItem('propertyType', this.property)
   this._router.navigate(['/pages/dashboard/legal-opinion'])
 }
 
