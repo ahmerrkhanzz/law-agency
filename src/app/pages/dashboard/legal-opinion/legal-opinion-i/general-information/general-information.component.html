@@ -244,8 +244,8 @@
         <div class="d-flex justify-content-center">
           <button type="button" [disabled]="
                 personalInformationForm.status.toLowerCase() === 'invalid'
-              " (click)="submit('next')" class="btn btn-lg btn-primary width-7">
-            Save
+              " (click)="submit('next')" class="btn btn-lg btn-primary">
+            {{ selectedTabAlter.id === 3 ? 'Generate Certificate' : 'Save Form' }}
           </button>
         </div>
       </div>

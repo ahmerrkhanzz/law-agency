@@ -10,6 +10,7 @@ import { numericValidator, removeDuplicates, textValidator } from 'src/app/share
 })
 export class ListOfDocumentsComponent implements OnInit {
 
+  @Input() selectedTab: any;
   @Input() savedForm: any;
   @Output() unauthorized = new EventEmitter<boolean>(false);
   @Output() proceed = new EventEmitter<object>(null);

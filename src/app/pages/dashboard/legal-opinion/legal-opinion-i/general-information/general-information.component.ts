@@ -1,20 +1,46 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { textValidator, numericValidator, removeDuplicates } from 'src/app/shared/globalfunctions';
+import {
+  textValidator,
+  numericValidator,
+  removeDuplicates,
+} from 'src/app/shared/globalfunctions';
+import { Packer } from 'docx';
+import { saveAs } from 'file-saver';
+import { GCCertificateCreator } from '../list-of-documents-ii/gc_certificate';
 
 @Component({
   selector: 'app-general-information',
   templateUrl: './general-information.component.html',
-  styleUrls: ['./general-information.component.scss']
+  styleUrls: ['./general-information.component.scss'],
 })
 export class GeneralInformationComponent implements OnInit {
+  // @Input() selectedTab: any;
+
+  public selectedTabAlter: any;
+  @Input() set selectedTab(value: any) {
+    this.selectedTabAlter = value;
+    console.log(value);
+
+    // this.updatePeriodTypes();
+  }
+  // get selectedTab(): boolean {
+  //   return this._allowDay;
+  // }
 
   @Input() savedForm: any;
   @Output() unauthorized = new EventEmitter<boolean>(false);
   @Output() proceed = new EventEmitter<object>(null);
-  @ViewChild("avatar") avatar: ElementRef;
+  @ViewChild('avatar') avatar: ElementRef;
 
   public languages = [];
   public specialities: any[] = [];
@@ -23,7 +49,7 @@ export class GeneralInformationComponent implements OnInit {
   public profileImg: File;
   public dob: any;
   public preview: string =
-    "../../../../../assets/images/doctor-placeholder.jpg";
+    '../../../../../assets/images/doctor-placeholder.jpg';
   public personalInformationForm: FormGroup;
   public textValidator = textValidator;
   public numericValidator = numericValidator;
@@ -32,7 +58,7 @@ export class GeneralInformationComponent implements OnInit {
   public selectedSpecialities: any[] = [
     {
       id: null,
-      name: "General Phsycian",
+      name: 'General Phsycian',
       file: null,
     },
   ];
@@ -43,50 +69,50 @@ export class GeneralInformationComponent implements OnInit {
     day: new Date().getDate(),
   };
 
+  public beforeTransactions = [];
+  public afterTransactions = [];
+  public intro = [];
+
   // formatter = (cities: City) => cities.name;
 
   constructor(
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private _toast: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.languages = [
-      { id: 1, name: "English" },
-      { id: 2, name: "Urdu" },
-      { id: 3, name: "Turkish" },
-      { id: 4, name: "German" },
-      { id: 5, name: "Arabic" },
-      { id: 6, name: "Spanish" },
-      { id: 7, name: "Portugeese" },
+      { id: 1, name: 'English' },
+      { id: 2, name: 'Urdu' },
+      { id: 3, name: 'Turkish' },
+      { id: 4, name: 'German' },
+      { id: 5, name: 'Arabic' },
+      { id: 6, name: 'Spanish' },
+      { id: 7, name: 'Portugeese' },
     ];
 
     this.selectedItems = [
-      { id: 3, name: "Pune" },
-      { id: 4, name: "Navsari" },
+      { id: 3, name: 'Pune' },
+      { id: 4, name: 'Navsari' },
     ];
     this.dropdownSettings = {
       singleSelection: false,
-      idField: "id",
-      textField: "name",
-      selectAllText: "Select All",
-      unSelectAllText: "UnSelect All",
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
       itemsShowLimit: 4,
       allowSearchFilter: true,
     };
 
     this.personalInformationForm = this.formBuilder.group({
       property: this.formBuilder.group({
-        area: ["", [
-          Validators.required,
-        ]],
-        unit: ["Marla", [
-          Validators.required,
-        ],],
+        area: ['', [Validators.required]],
+        unit: ['Marla', [Validators.required]],
       }),
       name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(5),
@@ -94,7 +120,7 @@ export class GeneralInformationComponent implements OnInit {
         ],
       ],
       cnic: [
-        "",
+        '',
         [
           Validators.required,
           Validators.maxLength(13),
@@ -103,7 +129,7 @@ export class GeneralInformationComponent implements OnInit {
         ],
       ],
       co_applicant_name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(5),
@@ -111,7 +137,7 @@ export class GeneralInformationComponent implements OnInit {
         ],
       ],
       co_applicant_cnic: [
-        "",
+        '',
         [
           Validators.required,
           Validators.maxLength(13),
@@ -120,7 +146,7 @@ export class GeneralInformationComponent implements OnInit {
         ],
       ],
       address: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(10),
@@ -129,35 +155,22 @@ export class GeneralInformationComponent implements OnInit {
         ],
       ],
       owner_name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(5),
           Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
         ],
       ],
-      ownership_type: [
-        "Sole",
-        [
-          Validators.required,
-        ],
-      ],
+      ownership_type: ['Sole', [Validators.required]],
       authority: [
-        "",
+        '',
         [
           Validators.required,
           Validators.pattern(/^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$/),
         ],
       ],
     });
-
-    // this.getSpecialities();
-    if (localStorage.hasOwnProperty("personalInformation")) {
-      localStorage.removeItem('personalInformation')
-      // this.selectedDoctor = JSON.parse(localStorage.getItem("selectedDoctor"));
-      // this.patchFormValues(this.selectedDoctor);
-      console.log(this.personalInformationForm);
-    }
 
     // else if (
     //   Object.keys(this.savedForm).length !== 0 &&
@@ -179,7 +192,7 @@ export class GeneralInformationComponent implements OnInit {
    * @memberof PersonalInformationComponent
    */
   get personalInformationFormControls(): any {
-    return this.personalInformationForm["controls"];
+    return this.personalInformationForm['controls'];
   }
 
   /**
@@ -202,7 +215,6 @@ export class GeneralInformationComponent implements OnInit {
     console.log(items);
   }
 
-
   /**
    *
    *  Submit Personal Information Form
@@ -210,18 +222,57 @@ export class GeneralInformationComponent implements OnInit {
    * @memberof PersonalInformationComponent
    */
   submit(direction) {
-    console.log(this.personalInformationForm)
-    this.proceed.emit(
-      this.formValidation(
-        direction,
-        this.personalInformationForm,
-        "personalInformation"
-      )
-    );
+    console.log(this.personalInformationForm);
+    if (this.selectedTabAlter.id === 3) {
+      this.download();
+    } else {
+      this.proceed.emit(
+        this.formValidation(
+          direction,
+          this.personalInformationForm,
+          'personalInformation'
+        )
+      );
+    }
+  }
+
+  public download(): void {
+    const {
+      name,
+      cnic,
+      co_applicant_name,
+      co_applicant_cnic,
+      owner_name,
+      ownership_type,
+      authority,
+      address,
+      property,
+    } = this.personalInformationForm.value;
+    this.beforeTransactions = [
+      {
+        notes: `We write with the reference to the above mention, we have verified Transfer Letter vide Ref. No. 02/02754, dated 15-05-2019, of house/plot no. ${address}, measuring ${property.area} - ${property.unit}, in favour of ${name}, situated at phase=II & issued by The Defence Housing Authority (DHA), Lahore \n\n The said Transfer Letter is issued by the Defence Housing Authority (DHA), Lahore & is placed in its record. \n\n `,
+      },
+    ];
+
+    this.intro = [
+      {
+        name: 'Sub :-',
+        value: `CONFIRMATION CERTIFICATE REGARDING TRANSFER LETTER VIDE REF. NO. 02/02754, DATED 15-05-2019, OF ${address}, MEASURING ${property.area}-${property.unit}, in favour of ${name} SITUATED AT PHASE II & ISSUED BY THE DEFENCE HOUSING AUTHORITY (DHA), LAHORE`,
+      },
+    ];
+
+    const documentCreator = new GCCertificateCreator();
+    const doc = documentCreator.create([this.beforeTransactions, this.intro]);
+
+    Packer.toBlob(doc).then(blob => {
+      console.log(blob);
+      saveAs(blob, 'gc-certificate.docx');
+      console.log('Document created successfully');
+    });
   }
 
   public formValidation(direction, form, name?) {
-    if (form.status.toLowerCase() === "invalid") {
+    if (form.status.toLowerCase() === 'invalid') {
       return {
         validated: false,
         direction: direction,
@@ -267,21 +318,21 @@ export class GeneralInformationComponent implements OnInit {
         day: day,
       };
     }
-    this.preview = image.includes("no-image")
-      ? "../../../../../assets/images/doctor-placeholder.jpg"
+    this.preview = image.includes('no-image')
+      ? '../../../../../assets/images/doctor-placeholder.jpg'
       : image;
     if (!is_instant) {
       this.selectedSpecialities = speciality;
     }
     this.personalInformationForm.patchValue({
-      image: "",
+      image: '',
       pmdc: pmdc,
       name: name,
       email: email,
       phone: phone,
       password: password,
       date_of_birth:
-        date_of_birth && typeof date_of_birth === "string"
+        date_of_birth && typeof date_of_birth === 'string'
           ? this.dob
           : date_of_birth,
       country: country,
@@ -290,11 +341,11 @@ export class GeneralInformationComponent implements OnInit {
       is_instant: is_instant,
       gender: gender,
       speciality: this.selectedSpecialities,
-      language: removeDuplicates(language, "name"),
+      language: removeDuplicates(language, 'name'),
       summary: summary,
     });
-    this.languages.forEach((e) => {
-      language.forEach((element) => {
+    this.languages.forEach(e => {
+      language.forEach(element => {
         if (e.name === element.name) {
           this.selectedLanguages.push(e);
         }
@@ -302,6 +353,4 @@ export class GeneralInformationComponent implements OnInit {
     });
     console.log(this.personalInformationForm);
   }
-
-
 }
