@@ -6,28 +6,27 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-legal-opinion-i',
   templateUrl: './legal-opinion-i.component.html',
-  styleUrls: ['./legal-opinion-i.component.scss']
+  styleUrls: ['./legal-opinion-i.component.scss'],
 })
 export class LegalOpinionIComponent implements OnInit {
-
   public savedForm: object = {};
   public loading: boolean = false;
-  @ViewChild("navChild") nav;
+  @ViewChild('navChild') nav;
   public doctors: any[] = [
     {
-      title: "Legal Opinion 1",
+      title: 'Legal Opinion 1',
       id: 1,
     },
     {
-      title: "Original File Review",
+      title: 'Original File Review',
       id: 2,
     },
     {
-      title: "GC(Geniune Certificate)",
+      title: 'GC(Geniune Certificate)',
       id: 3,
     },
     {
-      title: "Specific Opinion",
+      title: 'Specific Opinion',
       id: 4,
     },
     // {
@@ -35,21 +34,21 @@ export class LegalOpinionIComponent implements OnInit {
     //   id: 5,
     // },
     {
-      title: "Sale Deed",
+      title: 'Sale Deed',
       id: 5,
     },
   ];
   public formsNav: any[] = [
     {
-      title: "General Information",
+      title: 'General Information',
       id: 1,
     },
     {
-      title: "List of Documents (reviewed)",
+      title: 'List of Documents (reviewed)',
       id: 2,
     },
     {
-      title: "List of Documents (Before Transaction)",
+      title: 'List of Documents (Before Transaction)',
       id: 3,
     },
   ];
@@ -59,19 +58,17 @@ export class LegalOpinionIComponent implements OnInit {
   public doctorArray: any[] = [];
   public selectedDoctor: any[] = [];
 
-  constructor(
-    private _toast: ToastrService,
-    private _router: Router
-  ) { }
+  constructor(private _toast: ToastrService, private _router: Router) {}
 
   ngOnInit(): void {
-    if (localStorage.hasOwnProperty("selectedDoctor")) {
-      this.selectedDoctor = JSON.parse(localStorage.getItem("selectedDoctor"));
+    if (localStorage.hasOwnProperty('selectedDoctor')) {
+      this.selectedDoctor = JSON.parse(localStorage.getItem('selectedDoctor'));
     }
   }
 
   selectTab(tab) {
     this.selectedTab = tab;
+    this.selectedChildTab = this.formsNav[0];
   }
 
   selectChildTab(tab) {
@@ -79,21 +76,22 @@ export class LegalOpinionIComponent implements OnInit {
   }
 
   controls = (direction, tabId, form, formName?: string) => {
-    console.log({ direction, tabId, form, formName })
-    if (direction === "next") {
+    console.log({ direction, tabId, form, formName });
+    if (direction === 'next') {
       this.nav.select(this.selectedChildTab.id + 1);
-      const selectedTab = this.formsNav.filter((e) => e.id === tabId + 1);
+      const selectedTab = this.formsNav.filter(e => e.id === tabId + 1);
       this.selectedChildTab = selectedTab[0];
       // this.doctorArray.push(form);
       // this.savedForm[formName] = form;
-      localStorage.setItem(formName, JSON.stringify(form))
+      localStorage.setItem(formName, JSON.stringify(form));
       console.log(this.savedForm);
-    } else if (direction === "back") {
-      this.nav.select(this.selectedTab.id - 1);
-      const selectedTab = this.doctors.filter((e) => e.id === tabId - 1);
-      this.selectedTab = selectedTab[0];
+    } else if (direction === 'back') {
+      console.log(this.selectedChildTab)
+      this.nav.select(this.selectedChildTab.id - 1);
+      const selectedTab =  this.formsNav.filter(e => e.id === tabId - 1);
+      this.selectedChildTab = selectedTab[0];
     } else {
-      this.doctorArray.push(form);
+      // this.doctorArray.push(form);
       // this.addDoctorProfile();
     }
   };
@@ -162,7 +160,7 @@ export class LegalOpinionIComponent implements OnInit {
       summary: summary,
       is_instant: is_instant,
 
-      language: this.arrayFormatter(language, "name"),
+      language: this.arrayFormatter(language, 'name'),
       speciality: is_instant ? null : speciality,
       gender: gender,
       date_of_birth: date_of_birth,
@@ -186,16 +184,16 @@ export class LegalOpinionIComponent implements OnInit {
   }
 
   arrayFormatter(array, type) {
-    if (type === "id") {
-      return array.map((obj) => {
+    if (type === 'id') {
+      return array.map(obj => {
         return obj.id;
       });
-    } else if (type === "name") {
-      return array.map((obj) => {
+    } else if (type === 'name') {
+      return array.map(obj => {
         return obj.name;
       });
     } else {
-      return array.map((obj) => {
+      return array.map(obj => {
         return obj.service;
       });
     }
@@ -267,12 +265,11 @@ export class LegalOpinionIComponent implements OnInit {
 
   isUserLoggedIn(event) {
     if (event) {
-      this._router.navigate(["/"]);
+      this._router.navigate(['/']);
     }
   }
 
   ngOnDestroy() {
     this.savedForm = null;
   }
-
 }

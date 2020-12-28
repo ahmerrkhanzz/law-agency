@@ -200,7 +200,7 @@ export class GCCertificateCreator {
           children: [
             new TextRun({
               text:
-                'This legal opinion is based on the copies of documents provided to us. We can demand further chain documents at the time of original file review, to secure the interest of bank. While scrutiny of documents, due care has been taken. However, errors and omissions may be expected. We trust that the foregoing would be comprehensive, effective & securing the interests of financial institution. In case of any ambiguity/clarification, we may be contacted without any hesitation ',
+                'In case of any ambiguity/clarification, we may be contacted without any hesitation ',
               font: {
                 name: 'Bookman Old Style',
               },

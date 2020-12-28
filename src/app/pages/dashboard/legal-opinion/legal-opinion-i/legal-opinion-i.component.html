@@ -30,21 +30,21 @@
                   >
                     <app-general-information
                       (proceed)="validated($event)"
-                      [selectedTab]="tab"
+                      [selectedTab]="selectedTab"
                       (unauthorized)="isUserLoggedIn($event)"
                       *ngIf="(tab.id === 1 || tab.id === 2 || tab.id === 3) && (selectedChildTab.id === 1)"
                     >
                     </app-general-information>
                     <app-list-of-documents
                       (proceed)="validated($event)"
-                      [selectedTab]="tab"
+                      [selectedTab]="selectedTab"
                       (unauthorized)="isUserLoggedIn($event)"
                       *ngIf="(tab.id === 1 || tab.id === 2) && (selectedChildTab.id === 2)"
                     >
                     </app-list-of-documents>
                     <app-list-of-documents-ii
                       (proceed)="validated($event)"
-                      [selectedTab]="tab"
+                      [selectedTab]="selectedTab"
                       (unauthorized)="isUserLoggedIn($event)"
                       *ngIf="(tab.id === 1 || tab.id === 2) && (selectedChildTab.id === 3)"
                     >
@@ -64,7 +64,7 @@
                   >
                     <app-general-information
                       (proceed)="validated($event)"
-                      [selectedTab]="tab"
+                      [selectedTab]="selectedTab"
                       (unauthorized)="isUserLoggedIn($event)"
                     >
                     </app-general-information>

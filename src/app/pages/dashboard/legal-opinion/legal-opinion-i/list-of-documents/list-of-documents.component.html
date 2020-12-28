@@ -204,6 +204,9 @@
         <div class="form-group row">
             <div class="col-sm-12">
                 <div class="d-flex justify-content-center">
+                    <button type="button" (click)="submit('back')" class="btn btn-lg btn-default width-7 mr-2">
+                        Back
+                    </button>
                     <button type="button" (click)="submit('next')" [disabled]="personalInformationForm.status.toLowerCase() === 'invalid'" class="btn btn-lg btn-primary width-7">
                         Save
                     </button>

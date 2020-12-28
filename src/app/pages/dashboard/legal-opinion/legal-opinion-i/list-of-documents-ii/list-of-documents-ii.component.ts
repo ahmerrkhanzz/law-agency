@@ -103,6 +103,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
       itemsShowLimit: 4,
       allowSearchFilter: true,
     };
+    console.log(this.selectedTab);
 
     this.personalInformationForm = this.formBuilder.group({
       image: ['', Validators.required],
@@ -131,7 +132,31 @@ export class ListOfDocumentsIiComponent implements OnInit {
       this.education = [
         {
           degree: 'We have reviewed the copies of the following documents:',
-          notes: `1. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} agreement to sell, between ${owner_name} (Seller) & ${name} (Purchaser), regarding House measuring ${property.area}-${property.unit}, Situated at ${address}.\n\n2. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Sale Deed, in favour of ${owner_name} W/o Syed Arshad Ali, regarding property measuring ${property.area}-${property.unit}, vide registered document No. 16726, Book No.1, Volume No. 6291, Dated 10-06-2016, registered with Sub-Registrar Nishter Town, Lahore. \n3. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Mutation No. 758, in favour of Zahida Perveen regarding said property.\n\n4. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain Shah, regarding property measuring 15-Marla, vide registered document No. 21688 Book 1, Volume 5146, Dated 17-09-2014, registered with sub registrar Nister Town Lahore. \n\n5. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Mutation No. 44792, dated 21-10-2015, in favor of Mrs. Musa Moti Razia regarding property measuring 15-Marla. \n\n6. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain regarding property measuring 01-Marla, vide registered document No. 27201 book 1, volume 5257, dated 2-12-2014, registered with sub registrar Nister Town Lahore.\n\n7. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Mutation No. 45318, dated 19-05-2015 in favor of Mrs. Musa Moti Razia regarding property measuring 01-Marla.\n\n8. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Sanction/Approval letter for residential construction vide no. 441-D (P&C)-NST/17 dated 29-04-2017 issued by the Zonal Officer Nishter Town Lahore.\n\n9. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Approved Map of the House.`,
+          notes: `1. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } agreement to sell, between ${owner_name} (Seller) & ${name} (Purchaser), regarding House measuring ${
+            property.area
+          }-${property.unit}, Situated at ${address}.\n\n2. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Sale Deed, in favour of ${owner_name} W/o Syed Arshad Ali, regarding property measuring ${
+            property.area
+          }-${
+            property.unit
+          }, vide registered document No. 16726, Book No.1, Volume No. 6291, Dated 10-06-2016, registered with Sub-Registrar Nishter Town, Lahore. \n3. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Mutation No. 758, in favour of Zahida Perveen regarding said property.\n\n4. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain Shah, regarding property measuring 15-Marla, vide registered document No. 21688 Book 1, Volume 5146, Dated 17-09-2014, registered with sub registrar Nister Town Lahore. \n\n5. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Mutation No. 44792, dated 21-10-2015, in favor of Mrs. Musa Moti Razia regarding property measuring 15-Marla. \n\n6. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } sale deed, in favour of Mrs. Musa Moti Razia W/o Muhammad Hussain regarding property measuring 01-Marla, vide registered document No. 27201 book 1, volume 5257, dated 2-12-2014, registered with sub registrar Nister Town Lahore.\n\n7. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Mutation No. 45318, dated 19-05-2015 in favor of Mrs. Musa Moti Razia regarding property measuring 01-Marla.\n\n8. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Sanction/Approval letter for residential construction vide no. 441-D (P&C)-NST/17 dated 29-04-2017 issued by the Zonal Officer Nishter Town Lahore.\n\n9. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Approved Map of the House.`,
         },
       ];
 
@@ -155,20 +180,34 @@ export class ListOfDocumentsIiComponent implements OnInit {
       this.dha_education = [
         {
           degree: 'We have reviewed the copies of the following documents:',
-          notes: `1. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${property.area}-${property.unit}, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Copy of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Copy Map of the house.\n`,
+          notes: `1. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${
+            property.area
+          }-${
+            property.unit
+          }, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Copy of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Copy Map of the house.\n`,
         },
       ];
 
       this.dha_beforeTransactions = [
         {
-          notes: `1. ${this.selectedTab === 1 ? 'Copy of' : 'Original'} Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${property.area}-${property.unit}, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Original of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Original approved Map of the house.\n4. Fresh permission to mortgage letter (PTM) in favour of BIPL. \n5. Registered Mortgage deed, in favour of BIPL. \n6. Lien in DHA, Lahore, in favour of BIPL.`,
+          notes: `1. ${
+            this.selectedTab.id === 1 ? 'Copy of' : 'Original'
+          } Transfer Letter, vide Ref. No. 02/02754, in favour of  ${name}, regarding ${address}, measuring ${
+            property.area
+          }-${
+            property.unit
+          }, Situated at ${address}, issues by Defence Housing Authority (DHA) Lahore.\n\n2. Original of Site Plan & Possession letter, Vide Ref. No RN/219837, regarding ${address}, Issued by DHA Lahore. \n3. Original approved Map of the house.\n4. Fresh permission to mortgage letter (PTM) in favour of BIPL. \n5. Registered Mortgage deed, in favour of BIPL. \n6. Lien in DHA, Lahore, in favour of BIPL.`,
         },
       ];
 
       this.intro = [
         {
           name: 'Product',
-          value: `${this.selectedTab === 1 ? 'Legal Opinion I' : 'Legal Opinion I'}`,
+          value: `${
+            this.selectedTab.id === 1 ? 'Legal Opinion I' : 'Legal Opinion I'
+          }`,
         },
         {
           name: 'Name of Applicant',
@@ -290,7 +329,7 @@ export class ListOfDocumentsIiComponent implements OnInit {
       };
     }
     event.target.value = null;
-  }cop
+  }
 
   // getSpecialities() {
   //   this._adminDoctorsService.getSpecialities().subscribe(
@@ -328,22 +367,32 @@ export class ListOfDocumentsIiComponent implements OnInit {
    * @memberof PersonalInformationComponent
    */
   submit(direction) {
-    // this.proceed.emit(
-    //   this._adminDoctorsService.formValidation(
-    //     direction,
-    //     this.personalInformationForm,
-    //     "personalInformation"
-    //   )
-    // );
+    this.proceed.emit(
+      this.formValidation(
+        direction,
+        this.personalInformationForm,
+        'list_of_documents_ii'
+      )
+    );
   }
 
-  // trimValidation(event) {
-  //   console.log(event.target.value.replace(/  /g, ' ').trim());
-
-  //   this.personalInformationForm.patchValue({
-  //     name: event.target.value.replace(/  /g, ' ').trim()
-  //   })
-  // }
+  public formValidation(direction, form, name?) {
+    if (form.status.toLowerCase() === 'invalid') {
+      return {
+        validated: false,
+        direction: direction,
+        form: form,
+      };
+      // return false;
+    } else {
+      return {
+        validated: true,
+        direction: direction,
+        form: form.value,
+        name: name,
+      };
+    }
+  }
 
   setInputFilter(
     textbox: Element,
@@ -474,7 +523,12 @@ export class ListOfDocumentsIiComponent implements OnInit {
 
       Packer.toBlob(doc).then(blob => {
         console.log(blob);
-        saveAs(blob, 'legal-opinion-1.docx');
+        saveAs(
+          blob,
+          `${
+            this.selectedTab.id === 1 ? 'legal-opinion-I' : 'legal-opinion-II'
+          }.docx`
+        );
         console.log('Document created successfully');
       });
     } else {
