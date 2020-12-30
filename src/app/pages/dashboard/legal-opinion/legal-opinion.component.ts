@@ -6,32 +6,30 @@ import { AddPropertyComponent } from '../add-property/add-property.component';
 @Component({
   selector: 'app-legal-opinion',
   templateUrl: './legal-opinion.component.html',
-  styleUrls: ['./legal-opinion.component.scss']
+  styleUrls: ['./legal-opinion.component.scss'],
 })
 export class LegalOpinionComponent implements OnInit {
   public isPurchase: boolean = false;
-  public property: string = ""
-  public selectedSection: string = ""
-  constructor(private _modalService: NgbModal, private _router: Router) { }
+  public property: string = '';
+  public selectedSection: string = '';
+  constructor(private _modalService: NgbModal, private _router: Router) {}
 
-ngOnInit(): void {}
+  ngOnInit(): void {}
 
-addProperty() {
-  const modalRef = this._modalService.open(AddPropertyComponent, {
-    size: "md",
-  });
-  modalRef.result.then((result) => {
-    if (result) {
-      console.log(result);
-    }
-  });
-  modalRef.componentInstance.title = "Property";
-}
+  addProperty() {
+    const modalRef = this._modalService.open(AddPropertyComponent, {
+      size: 'md',
+    });
+    modalRef.result.then(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
+    modalRef.componentInstance.title = 'Property';
+  }
 
-
-submitProperty() {
-  localStorage.setItem('propertyType', this.property)
-  this._router.navigate(['/pages/dashboard/legal-opinion'])
-}
-
+  submitProperty() {
+    localStorage.setItem('propertyType', this.property);
+    this._router.navigate(['/pages/dashboard/legal-opinion']);
+  }
 }

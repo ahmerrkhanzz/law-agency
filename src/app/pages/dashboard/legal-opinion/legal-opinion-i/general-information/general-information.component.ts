@@ -5,6 +5,7 @@ import {
   Input,
   Output,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -172,18 +173,16 @@ export class GeneralInformationComponent implements OnInit {
       ],
     });
 
-    // else if (
-    //   Object.keys(this.savedForm).length !== 0 &&
-    //   this.savedForm.constructor === Object
-    // ) {
-    //   console.log(this.savedForm);
-    //   // this.patchFormValues(this.savedForm.personalInformation);
-    // }
+    if (localStorage.hasOwnProperty('savedForm')) {
+      console.log(JSON.parse(localStorage.getItem('savedForm')));
+      this.patchFormValues(JSON.parse(localStorage.getItem('savedForm')));
+    }
   }
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
   }
+
   /**
    *
    * Getter method for form controls values
@@ -291,65 +290,26 @@ export class GeneralInformationComponent implements OnInit {
 
   patchFormValues(data) {
     const {
-      image,
-      pmdc,
-      name,
-      email,
-      password,
-      phone,
-      date_of_birth,
-      country,
-      city,
       address,
-      gender,
-      speciality,
-      language,
-      summary,
-      is_instant,
+      authority,
+      cnic,
+      co_applicant_cnic,
+      co_applicant_name,
+      name,
+      owner_name,
+      ownership_type,
+      property,
     } = data;
-    if (date_of_birth) {
-      let date = new Date(date_of_birth);
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      let day = date.getDate();
-      this.dob = {
-        year: year,
-        month: month,
-        day: day,
-      };
-    }
-    this.preview = image.includes('no-image')
-      ? '../../../../../assets/images/doctor-placeholder.jpg'
-      : image;
-    if (!is_instant) {
-      this.selectedSpecialities = speciality;
-    }
     this.personalInformationForm.patchValue({
-      image: '',
-      pmdc: pmdc,
-      name: name,
-      email: email,
-      phone: phone,
-      password: password,
-      date_of_birth:
-        date_of_birth && typeof date_of_birth === 'string'
-          ? this.dob
-          : date_of_birth,
-      country: country,
-      city: city,
-      address: address,
-      is_instant: is_instant,
-      gender: gender,
-      speciality: this.selectedSpecialities,
-      language: removeDuplicates(language, 'name'),
-      summary: summary,
-    });
-    this.languages.forEach(e => {
-      language.forEach(element => {
-        if (e.name === element.name) {
-          this.selectedLanguages.push(e);
-        }
-      });
+      address,
+      authority,
+      cnic,
+      co_applicant_cnic,
+      co_applicant_name,
+      name,
+      owner_name,
+      ownership_type,
+      property,
     });
     console.log(this.personalInformationForm);
   }

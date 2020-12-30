@@ -54,7 +54,6 @@ export class LegalOpinionIComponent implements OnInit {
   ];
   public selectedTab = this.doctors[0];
   public selectedChildTab = this.formsNav[0];
-  public saveDoctorObject: any = {};
   public doctorArray: any[] = [];
   public selectedDoctor: any[] = [];
 
@@ -69,6 +68,7 @@ export class LegalOpinionIComponent implements OnInit {
   selectTab(tab) {
     this.selectedTab = tab;
     this.selectedChildTab = this.formsNav[0];
+    localStorage.removeItem('savedForm')
   }
 
   selectChildTab(tab) {
@@ -78,6 +78,9 @@ export class LegalOpinionIComponent implements OnInit {
   controls = (direction, tabId, form, formName?: string) => {
     console.log({ direction, tabId, form, formName });
     if (direction === 'next') {
+      if (tabId === 1) {
+        localStorage.setItem('savedForm', JSON.stringify(form));
+      }
       this.nav.select(this.selectedChildTab.id + 1);
       const selectedTab = this.formsNav.filter(e => e.id === tabId + 1);
       this.selectedChildTab = selectedTab[0];
@@ -86,9 +89,9 @@ export class LegalOpinionIComponent implements OnInit {
       localStorage.setItem(formName, JSON.stringify(form));
       console.log(this.savedForm);
     } else if (direction === 'back') {
-      console.log(this.selectedChildTab)
+      console.log(this.selectedChildTab);
       this.nav.select(this.selectedChildTab.id - 1);
-      const selectedTab =  this.formsNav.filter(e => e.id === tabId - 1);
+      const selectedTab = this.formsNav.filter(e => e.id === tabId - 1);
       this.selectedChildTab = selectedTab[0];
     } else {
       // this.doctorArray.push(form);
